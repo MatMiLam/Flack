@@ -20,7 +20,7 @@ $primary-color: rgb(49, 209, 97);
     
 
     .sidebar {
-        width: 150px;                        
+        width: 225px;                        
         background: #333;
         overflow: hidden;               
         opacity: .70;
@@ -44,16 +44,50 @@ $primary-color: rgb(49, 209, 97);
         background: #333;
         overflow: hidden;              
         margin-left: 10px; 
-        opacity: .70;        
+        opacity: .70;    
+
+        .chatbar {                          
+            height: 90px;
+            width: 100%;
+            position: fixed;
+            bottom: 0%;
+            padding: 8px 20%;            
+            background: rgb(34, 33, 33);
+            
+
+
+            input.chat-entry {
+                color: #fff;
+                background-color: #777;                
+                width: 60%;
+                padding: 5px;
+                border-radius: 10px;
+                border: 3px solid $primary-color;                
+            }
+
+            input[type=text]:focus {
+                border: 3px solid $primary-color;
+                outline: none;
+            }
+
+            button {
+                background: #777;
+                color: $primary-color;
+                padding: 5px;
+                border-radius: 5px;
+                border-color: $primary-color;
+
+                &:hover {
+                    background: $primary-color;
+                    color: #fff;
+                    cursor: pointer;
+                }
+            }
+
+                
+                    
+        }
+
     }       
     
-}
-
-.chatbar {    
-    
-    height: 90px;
-    width: 100%;
-    position: fixed;
-    bottom: 0%;
-    background: rgb(34, 33, 33);
 }

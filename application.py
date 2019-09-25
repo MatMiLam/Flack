@@ -6,6 +6,7 @@ from flask_socketio import SocketIO, emit
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
+FLASK_DEBUG=1
 
 
 @app.route("/")
