@@ -1,3 +1,9 @@
+body {
+  background: #333 url(../img/gaming-green-keyboard-51415.jpg) no-repeat center center/cover;
+  background-attachment: fixed;
+  height: 100vh;
+  overflow: hidden; }
+
 .navbar {
   display: flex;
   flex-wrap: wrap;
@@ -5,59 +11,58 @@
   z-index: 1;
   color: #31d161;
   background: #333; }
+  .navbar .icon {
+    color: #fff; }
 
-.showcase {
-  background: #333 url(../img/gaming-green-keyboard-51415.jpg) no-repeat center center/cover;
-  background-attachment: fixed;
-  height: 100%;
-  min-height: 100vh;
-  display: flex;
-  padding: 10px 10px; }
-  .showcase .sidebar {
-    width: 225px;
-    background: #333;
-    overflow: hidden;
-    opacity: .70; }
-    .showcase .sidebar a {
-      padding: 6px 8px 6px 16px;
-      text-decoration: none;
-      font-size: 15px;
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gap: 3px;
+  padding: 5px;
+  height: 100%; }
+
+.sidebar {
+  grid-column: 1/2;
+  grid-row: 1/6;
+  background: #333;
+  opacity: .70; }
+  .sidebar a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #fff;
+    display: block; }
+    .sidebar a:hover {
+      color: #31d161; }
+
+.chat {
+  grid-row: 1/5;
+  background: #333;
+  opacity: .70; }
+
+.chatbar {
+  background: #333;
+  opacity: .70;
+  text-align: center; }
+  .chatbar input.text-box {
+    color: #fff;
+    background-color: #555;
+    width: 60%;
+    padding: 5px;
+    border-radius: 10px;
+    border: 3px solid #31d161; }
+  .chatbar input[type=text]:focus {
+    border: 3px solid #31d161;
+    outline: none; }
+  .chatbar button {
+    background: #555;
+    color: #31d161;
+    padding: 5px;
+    border-radius: 10px;
+    border: 3px solid #31d161; }
+    .chatbar button:hover {
+      background: #31d161;
       color: #fff;
-      display: block; }
-      .showcase .sidebar a:hover {
-        color: #31d161; }
-  .showcase .chat {
-    flex: 1 0 auto;
-    background: #333;
-    overflow: hidden;
-    margin-left: 10px;
-    opacity: .70; }
-    .showcase .chat .chatbar {
-      height: 90px;
-      width: 100%;
-      position: fixed;
-      bottom: 0%;
-      padding: 8px 20%;
-      background: #222121; }
-      .showcase .chat .chatbar input.chat-entry {
-        color: #fff;
-        background-color: #777;
-        width: 60%;
-        padding: 5px;
-        border-radius: 10px;
-        border: 3px solid #31d161; }
-      .showcase .chat .chatbar input[type=text]:focus {
-        border: 3px solid #31d161;
-        outline: none; }
-      .showcase .chat .chatbar button {
-        background: #777;
-        color: #31d161;
-        padding: 5px;
-        border-radius: 5px;
-        border-color: #31d161; }
-        .showcase .chat .chatbar button:hover {
-          background: #31d161;
-          color: #fff;
-          cursor: pointer; }
+      cursor: pointer; }
 
 /*# sourceMappingURL=style.css.map */

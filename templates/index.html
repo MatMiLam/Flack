@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="showcase">       
+<div class="grid">       
 
     <div class="sidebar">
         <a href="#room">Chat Room #1</a>
@@ -10,16 +10,18 @@
         <a href="#room">Chat Room #4</a>
         <a href="#room">Chat Room #5</a>
         <a href="#room">Chat Room #6</a>                      
-    </div>        
+    </div>     
+
     <div class="chat">
-       <div class="message">
-           <div class="chatbar">
-                <form action="/chat-submit" method="POST" id="chat-box-text" name="chat-box-text">
-                <button type="submit">Send</button>                                        
-               </form>    
-           </div>
-       </div>                       
+
     </div>
+        
+    <div class="chatbar">
+        <form action="/chat-submit" method="POST" id="chat-box-text" name="chat-box-text">
+            <input class="text-box" type="text" autocomplete="off" autofocus>
+            <button type="submit">Send</button>                                        
+        </form>    
+    </div>                       
 
     
     
