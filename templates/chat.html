@@ -4,15 +4,20 @@
 <div class="grid">       
 
     <div class="sidebar">
-        <a href="#room">Chat Room #1</a>
-        <a href="#room">Chat Room #2</a>
-        <a href="#room">Chat Room #3</a>
-        <a href="#room">Chat Room #4</a>
-        <a href="#room">Chat Room #5</a>
-        <a href="#room">Chat Room #6</a>                      
+        <div class="addRoom">
+            <form action="/newRoom" method="POST" name="newRoom">
+                <input class="text-box" type="text" autocomplete="off">
+                <button type="submit">Create Room</button>            
+            </form>
+            <div class="line"></div>
+        </div>
+        {% for room in chatRooms %}            
+            <a href="{{room}}">{{room}}</a>
+        {% endfor %}      
+                         
     </div>     
 
-    <div class="chat">
+    <div class="chat">        
 
     </div>
         

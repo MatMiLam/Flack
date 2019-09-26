@@ -36,6 +36,47 @@ body {
     grid-row: 1/6;
     background: #333;
     opacity: .70;
+    overflow-y: scroll;  
+    
+    .addRoom {
+        text-align: center;
+
+        .line {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid $primary-color;
+        }
+    }
+    
+    input.text-box {
+        color: #fff;
+        background-color: #555;                    
+        width: 90%;
+        margin: 5px; 
+        padding: 0 10px;     
+        border-radius: 10px;        
+        border: 1px solid $primary-color;        
+    }
+    
+    input[type=text]:focus {
+        border: 1px solid $primary-color;
+        outline: none;
+    }
+
+    button {
+        background: #555;
+        color: $primary-color;
+        width: 90%;
+        // margin: 5px;        
+        border-radius: 10px;        
+        border: 1px solid $primary-color;              
+
+        &:hover {
+            background: $primary-color;
+            color: #fff;
+            cursor: pointer;
+        }
+    }
 
     a {
         padding: 6px 8px 6px 16px;
@@ -55,6 +96,7 @@ body {
     grid-row: 1/5;
     background: #333;
     opacity: .70;
+    overflow-y: auto;
 }
 
 
@@ -93,84 +135,48 @@ body {
     }
 }
 
-// .showcase {
-//     background: #333 url(../img/gaming-green-keyboard-51415.jpg) no-repeat center center/cover;
-//     background-attachment: fixed;    
-//     height: 100%;
-//     min-height: 100vh;
-//     display: flex;
-//     padding: 10px 10px;
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+
+// LogIn
+.form-wrap {
+    background-color: $primary-color;
+    max-width: 400px;  
+    margin-left: auto;
+    margin-right: auto;  
+    padding-top: 25px;      
+    opacity: 0.90;     
+
+    h3 {
+        color: #333;
+        text-align: center;
+        padding-bottom: 15px;        
+    }
     
-
-//     .sidebar {
-//         width: 225px;                        
-//         background: #333;
-//         overflow: hidden;               
-//         opacity: .70;
-             
-
-//         a {
-//             padding: 6px 8px 6px 16px;
-//             text-decoration: none;
-//             font-size: 15px;
-//             color: #fff;
-//             display: block;
-
-//             &:hover {
-//                 color: $primary-color;
-//             }
-//         }        
-//     }
-
-//     .chat {                       
-//         flex: 1 0 auto;                                
-//         background: #333;
-//         overflow: hidden;              
-//         margin-left: 10px; 
-//         opacity: .70;    
-
-//         .chatbar {                          
-//             height: 90px;
-//             width: 100%;
-//             position: fixed;
-//             bottom: 0%;
-//             padding: 8px 20%;            
-//             background: rgb(34, 33, 33);
-            
-
-
-//             input.chat-entry {
-//                 color: #fff;
-//                 background-color: #777;                
-//                 width: 60%;
-//                 padding: 5px;
-//                 border-radius: 10px;
-//                 border: 3px solid $primary-color;                
-//             }
-
-//             input[type=text]:focus {
-//                 border: 3px solid $primary-color;
-//                 outline: none;
-//             }
-
-//             button {
-//                 background: #777;
-//                 color: $primary-color;
-//                 padding: 5px;
-//                 border-radius: 5px;
-//                 border-color: $primary-color;
-
-//                 &:hover {
-//                     background: $primary-color;
-//                     color: #fff;
-//                     cursor: pointer;
-//                 }
-//             }
-
-                
-                    
-//         }
-
-//     }       
+    .items {
+        text-align: center;
+    }
     
-// }
+    .item {
+        padding: 10px;
+    }
+
+    button {
+        color: $primary-color;
+        background-color: #333;
+        border-radius: 10px;
+        border-color: $primary-color;
+
+        &:hover {
+            background: $primary-color;
+            color: #fff;
+            border-radius: 5px;
+            border-color: #333;
+            cursor: pointer;
+        }        
+
+    }
+}
