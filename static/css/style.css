@@ -40,7 +40,8 @@ body {
     margin: 5px;
     padding: 0 10px;
     border-radius: 10px;
-    border: 1px solid #31d161; }
+    border: 1px solid #31d161;
+    text-align: center; }
   .sidebar input[type=text]:focus {
     border: 1px solid #31d161;
     outline: none; }
@@ -62,6 +63,9 @@ body {
     display: block; }
     .sidebar a:hover {
       color: #31d161; }
+  .sidebar ul {
+    list-style: none;
+    padding-left: 0px; }
 
 .chat {
   grid-row: 1/5;
@@ -105,7 +109,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   padding-top: 25px;
-  opacity: 0.90; }
+  opacity: 0.80; }
   .form-wrap h3 {
     color: #333;
     text-align: center;

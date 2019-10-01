@@ -5,15 +5,21 @@
 
     <div class="sidebar">
         <div class="addRoom">
-            <form action="/newRoom" method="POST" name="newRoom">
-                <input class="text-box" type="text" autocomplete="off">
-                <button type="submit">Create Room</button>            
+            <form id="newRoom" action="/newRoom" method="POST" name="newRoom">
+                <input id="name" class="text-box" type="text" autocomplete="off" placeholder="Create A New Room">
+                <button id="submitRoom" type="submit">Create Room</button>            
             </form>
             <div class="line"></div>
         </div>
-        {% for room in chatRooms %}            
-            <a href="{{room}}">{{room}}</a>
-        {% endfor %}      
+        <div class="roomList">
+            <ul id="rooms">
+                {% for room in chatRooms %}            
+                    <li id="room">
+                        <a href="{{room}}">{{room}}</a>
+                    </li>
+                {% endfor %}              
+            </ul>
+        </div>
                          
     </div>     
 

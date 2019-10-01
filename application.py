@@ -33,3 +33,21 @@ def login():
 def chat():
     return render_template("chat.html", chatRooms=chatRooms)
 
+
+@socketio.on("create room")
+def createRoom(room):
+    selection = room["newRoom"]
+    chatRooms.append(selection)
+    print()
+    print(room)
+    print(room["newRoom"])
+    print(selection)
+    print(chatRooms)
+    print()
+    emit("announce room", {"selection": selection}, broadcast=True)
+
+@socketio.on("new message")
+def newMessage(message):
+    selection = message["selection"]
+    emit("announce message", {"selection": selection}, broadcast=True)
+
