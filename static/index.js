@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#submitRoom').disabled = false;
         else
             document.querySelector('#submitRoom').disabled = true;
-    };
+    };    
 
     document.querySelector('#newRoom').onsubmit = () => {   
         
@@ -21,28 +21,20 @@ document.addEventListener('DOMContentLoaded', () => {
             socket.emit('create room', {'newRoom': newRoom });            
         });
         return false;
-
-    };
-              
+    };              
         
     // When a new room is announced, add to the unordered list
     socket.on('announce room', data => {
         
         // Create new item for list
         const li = document.createElement('li');
-        li.innerHTML = `<li id="data"><a href="${data.selection}">${data.selection}</a></li>`        
+        li.innerHTML = `<li id=${data.selection}><a href="${data.selection}">${data.selection}</a></li>`        
         
         // Add new item to chat room list
         document.querySelector('#rooms').append(li);
         
         // Clear input field and disable button again
         document.querySelector('#name').value = '';
-        document.querySelector('#submitRoom').disabled = true;
-        
-        // Stop form from submitting
-        
+        document.querySelector('#submitRoom').disabled = true;                 
     });
-    
-    // return false;
-
 });

@@ -51,3 +51,6 @@ def newMessage(message):
     selection = message["selection"]
     emit("announce message", {"selection": selection}, broadcast=True)
 
+
+if __name__ == "__main__":
+    socketio.run(app, debug=True)
