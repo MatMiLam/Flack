@@ -24,8 +24,7 @@ def login():
     if request.method == "POST":
         username = request.form.get("username")
         session["user_id"] = username
-        return redirect("/")       
-
+        return redirect("/")     
 
 
 @app.route("/")
@@ -46,10 +45,10 @@ def createRoom(room):
     print()
     emit("announce room", {"selection": selection}, broadcast=True)
 
-@socketio.on("new message")
-def newMessage(message):
-    selection = message["selection"]
-    emit("announce message", {"selection": selection}, broadcast=True)
+# @socketio.on("new message")
+# def newMessage(message):
+#     selection = message["selection"]
+#     emit("announce message", {"selection": selection}, broadcast=True)
 
 
 if __name__ == "__main__":
