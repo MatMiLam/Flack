@@ -14,14 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#submitRoom').disabled = true;
     };    
 
-    document.querySelector('#newRoom').onsubmit = () => {   
-                
-        socket.on('connect', () => {
+    socket.on('connect', () => {
+        document.querySelector('#newRoom').onsubmit = () => {   
             const newRoom = document.querySelector('#name').value;
-            socket.emit('create room', {'newRoom': newRoom });            
-        });
-        return false;
-    };              
+            socket.emit('create room', {'newRoom': newRoom});
+            return false;
+        };           
+    });
         
     // When a new room is announced, add to the unordered list
     socket.on('announce room', data => {

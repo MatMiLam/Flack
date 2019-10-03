@@ -37,9 +37,7 @@ def chat():
 def createRoom(room):
     selection = room["newRoom"]
     chatRooms.append(selection)
-    print()
-    print(room)
-    print(room["newRoom"])
+    print()    
     print(selection)
     print(chatRooms)
     print()
