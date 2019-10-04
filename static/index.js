@@ -24,13 +24,19 @@ document.addEventListener('DOMContentLoaded', () => {
         
     // When a new room is announced, add to the unordered list
     socket.on('announce room', data => {
-                
-        // Create new item for list
-        const li = document.createElement('li');
-        li.innerHTML = `<li id=${data.selection}><a href="${data.selection}">${data.selection}</a></li>`        
-        
-        // Add new item to chat room list
-        document.querySelector('#rooms').append(li);
+
+        if (data.roomTaken){
+            alert("Room already exists")
+        }
+        else
+        {
+            // Create new item for list
+            const li = document.createElement('li');
+            li.innerHTML = `<li id=${data.selection}><a href="${data.selection}">${data.selection}</a></li>`        
+            
+            // Add new item to chat room list
+            document.querySelector('#rooms').append(li);
+        }                
         
         // Clear input field and disable button again
         document.querySelector('#name').value = '';

@@ -35,13 +35,12 @@ def chat():
 
 @socketio.on("create room")
 def createRoom(room):
+    roomTaken = True
     selection = room["newRoom"]
-    chatRooms.append(selection)
-    print()    
-    print(selection)
-    print(chatRooms)
-    print()
-    emit("announce room", {"selection": selection}, broadcast=True)
+    if selection not in chatRooms:
+        chatRooms.append(selection)
+        roomTaken = False  
+    emit("announce room", {"selection": selection, "roomTaken": roomTaken}, broadcast=True)
 
 # @socketio.on("new message")
 # def newMessage(message):
