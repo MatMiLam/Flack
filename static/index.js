@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#submitRoom').disabled = true;
     };    
 
+    // Listen for new room submission
     socket.on('connect', () => {
         document.querySelector('#newRoom').onsubmit = () => {   
             const newRoom = document.querySelector('#name').value;
@@ -42,4 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#name').value = '';
         document.querySelector('#submitRoom').disabled = true;                 
     });
+
+
+    // Listen for room selection 
+    socket.on('connect', () => {
+        document.querySelector('#room').onclick = () => {
+            const roomName = document.querySelector('#room').value;
+            socket.emit('change room', {})
+        };
+    });
+
+
+
+
 });

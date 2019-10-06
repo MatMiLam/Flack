@@ -42,6 +42,11 @@ def createRoom(room):
         roomTaken = False  
     emit("announce room", {"selection": selection, "roomTaken": roomTaken}, broadcast=True)
 
+@socketio.on("change room")
+def changeRoom(room):
+    room = room["roomName"]
+    emit("announce room change", {"room": room}, broadcast=True)
+
 # @socketio.on("new message")
 # def newMessage(message):
 #     selection = message["selection"]
