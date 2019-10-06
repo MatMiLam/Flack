@@ -45,7 +45,8 @@ def createRoom(room):
 @socketio.on("change room")
 def changeRoom(room):
     room = room["roomName"]
-    emit("announce room change", {"room": room}, broadcast=True)
+    messages = 
+    emit("announce room change", {"room": room, "messages": messages}, broadcast=True)
 
 # @socketio.on("new message")
 # def newMessage(message):

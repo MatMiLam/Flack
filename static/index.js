@@ -49,8 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on('connect', () => {
         document.querySelector('#room').onclick = () => {
             const roomName = document.querySelector('#room').value;
-            socket.emit('change room', {})
+            socket.emit('change room', {'roomName': roomName});
         };
+    });
+
+    // Load a new room when selected
+    socket.on('announce room change', data => {
+
     });
 
 
