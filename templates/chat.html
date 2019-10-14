@@ -6,7 +6,7 @@
     <div class="sidebar">
         <div class="addRoom">
             <form id="newRoom" action="/newRoom" method="POST" name="newRoom">
-                <input id="name" class="text-box" type="text" autocomplete="off" placeholder="Create A New Room">
+                <input test="hello!" id="name" class="text-box" type="text" autocomplete="off" placeholder="Create A New Room">                
                 <button id="submitRoom" type="submit">Create Room</button>            
             </form>
             <div class="line"></div>
@@ -23,14 +23,19 @@
                          
     </div>     
 
-    <div class="chat">        
+    <div class="chat">
+        <ul id="messages">
+            {% for message in messages %}
+                <li id="message">{{message}}</li>
+            {% endfor %}
+        </ul>    
 
     </div>
         
     <div class="chatbar">
-        <form action="/chat-submit" method="POST" id="chat-box-text" name="chat-box-text">
-            <input class="text-box" type="text" autocomplete="off" autofocus>
-            <button type="submit">Send</button>                                        
+        <form id="newMessage" action="/chat-submit" method="POST" id="chat-box-text" name="chat-box-text">
+            <input id="message" room="General" class="text-box" type="text" autocomplete="off" autofocus>
+            <button id="submitMessage" type="submit">Send</button>                                        
         </form>    
     </div>                       
 

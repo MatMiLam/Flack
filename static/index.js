@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Listen for new room submission
     socket.on('connect', () => {
         document.querySelector('#newRoom').onsubmit = () => {   
-            const newRoom = document.querySelector('#name').value;
+            const newRoom = document.querySelector('#name').value;            
             socket.emit('create room', {'newRoom': newRoom});
             return false;
         };           
@@ -41,24 +41,73 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Clear input field and disable button again
         document.querySelector('#name').value = '';
-        document.querySelector('#submitRoom').disabled = true;                 
+        document.querySelector('#submitRoom').disabled = true;             
     });
 
 
-    // Listen for room selection 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // By default, submit button is disabled
+    document.querySelector('#submitMessage').disabled = true;
+
+    // Enable button only if there is text in the input field
+    document.querySelector('#message').onkeyup = () => {
+        if (document.querySelector('#message').value.length > 0)
+            document.querySelector('#submitMessage').disabled = false;
+        else
+            document.querySelector('#submitMessage').disabled = true;
+    };    
+
+    // Listen for new room submission
     socket.on('connect', () => {
-        document.querySelector('#room').onclick = () => {
-            const roomName = document.querySelector('#room').value;
-            socket.emit('change room', {'roomName': roomName});
-        };
+        document.querySelector('#newMessage').onsubmit = () => {   
+            const newMessage = document.querySelector('#message').value;
+            const room = document.querySelector('#message').getAttribute("room");            
+            socket.emit('create message', {'newMessage': newMessage, 'room': room});
+            return false;
+        };           
+    });
+        
+    // When a new room is announced, add to the unordered list
+    socket.on('announce message', data => {
+
+        if (data.roomTaken){
+            alert("Room already exists")
+        }
+        else
+        {
+            // Create new item for list
+            const li = document.createElement('li');
+            li.innerHTML = `<li id=${data.selection}><a href="${data.selection}">${data.selection}</a></li>`        
+            
+            // Add new item to chat room list
+            document.querySelector('#rooms').append(li);
+        }                
+        
+        // Clear input field and disable button again
+        document.querySelector('#name').value = '';
+        document.querySelector('#submitRoom').disabled = true;             
     });
 
-    // Load a new room when selected
-    socket.on('announce room change', data => {
 
-    });
-
-
+    
 
 
 });
+
+
+    // // Listen for room selection 
+    // socket.on('connect', () => {
+    //     document.querySelector('#room').onclick = () => {
+    //         const roomName = document.querySelector('#room').value;
+    //         socket.emit('change room', {'roomName': roomName});
+    //     };
+    // });
+
+    // // Load a new room when selected
+    // socket.on('announce room change', data => {
+
+    // });
+
+    
+
