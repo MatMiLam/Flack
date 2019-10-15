@@ -100,9 +100,26 @@ body {
 
 .chat {
     grid-row: 1/5;
+    color: #fff;
     background: #333;
-    opacity: .70;
+    opacity: .70;    
     overflow-y: auto;
+    justify-content: center;
+
+    ul {                     
+        text-align: left;  
+        list-style: none;              
+
+        li {            
+            margin: 12px;            
+            width: 95%;            
+        }
+    }
+
+    h4 {
+        display: inline;
+        color: $primary-color;
+    }
 }
 
 

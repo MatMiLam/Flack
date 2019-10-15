@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Connect to websocket
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
+    //////////////////////// New Room /////////////////////////////////////////////
+
     // By default, submit button is disabled
     document.querySelector('#submitRoom').disabled = true;
 
@@ -17,7 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Listen for new room submission
     socket.on('connect', () => {
         document.querySelector('#newRoom').onsubmit = () => {   
-            const newRoom = document.querySelector('#name').value;            
+            const newRoom = document.querySelector('#name').value;   
+            
+            // Clear input field and disable button again
+            document.querySelector('#name').value = '';
+            document.querySelector('#submitRoom').disabled = true; 
+
             socket.emit('create room', {'newRoom': newRoom});
             return false;
         };           
@@ -37,15 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Add new item to chat room list
             document.querySelector('#rooms').append(li);
-        }                
-        
-        // Clear input field and disable button again
-        document.querySelector('#name').value = '';
-        document.querySelector('#submitRoom').disabled = true;             
+        }                       
+                    
     });
 
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////// New Message /////////////////////////////////////////////
 
     // By default, submit button is disabled
     document.querySelector('#submitMessage').disabled = true;
@@ -58,39 +62,42 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#submitMessage').disabled = true;
     };    
 
-    // Listen for new room submission
+    // Listen for new message submission
     socket.on('connect', () => {
         document.querySelector('#newMessage').onsubmit = () => {   
             const newMessage = document.querySelector('#message').value;
-            const room = document.querySelector('#message').getAttribute("room");            
+            const room = document.querySelector('#message').getAttribute("room"); 
+            
+            // Clear input field and disable button again
+            document.querySelector('#message').value = '';
+            document.querySelector('#submitMessage').disabled = true;
+
             socket.emit('create message', {'newMessage': newMessage, 'room': room});
             return false;
         };           
     });
         
-    // When a new room is announced, add to the unordered list
+    // When a new message is announced, add to the unordered list
     socket.on('announce message', data => {
 
-        if (data.roomTaken){
-            alert("Room already exists")
-        }
-        else
-        {
-            // Create new item for list
-            const li = document.createElement('li');
-            li.innerHTML = `<li id=${data.selection}><a href="${data.selection}">${data.selection}</a></li>`        
+        const room = document.querySelector('#message').getAttribute("room");
+        const currentRoom = data.room;
+
+        if (currentRoom == room){
             
-            // Add new item to chat room list
-            document.querySelector('#rooms').append(li);
+            // Create new message item for list
+            const li = document.createElement('li');
+            // li.innerHTML = `<li id=${data.message}><a href="${data.message}"> <h4>${data.user}:</h4> ${data.message}</a></li>`        
+            li.innerHTML = `<li id=${data.message}><h4>${data.user}:</h4> ${data.message}</li>`        
+            
+            // Add new item to messages list
+            document.querySelector('#messages').append(li);
         }                
-        
-        // Clear input field and disable button again
-        document.querySelector('#name').value = '';
-        document.querySelector('#submitRoom').disabled = true;             
-    });
+                   
+    });    
 
+    //////////////////////// Change Room /////////////////////////////////////////////
 
-    
 
 
 });

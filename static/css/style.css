@@ -69,9 +69,20 @@ body {
 
 .chat {
   grid-row: 1/5;
+  color: #fff;
   background: #333;
   opacity: .70;
-  overflow-y: auto; }
+  overflow-y: auto;
+  justify-content: center; }
+  .chat ul {
+    text-align: left;
+    list-style: none; }
+    .chat ul li {
+      margin: 12px;
+      width: 95%; }
+  .chat h4 {
+    display: inline;
+    color: #31d161; }
 
 .chatbar {
   background: #333;
