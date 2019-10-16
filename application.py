@@ -17,15 +17,19 @@ class ChatRoom(object):
     def __init__(self, room):
         self.room = room
 
-    def getMessages():
+    def getMessages(self):
         return self.messages
 
     def addMessage(self, user, message):
         self.messages[message] = user
-        print(len(messages))
+        print(len(self.messages))
         
+General = ChatRoom("General")
+News = ChatRoom("News")
+# chatRooms = ["General", "News", "Sports", "Tech"]
+# chatRooms = {"General":General, "News": News, "Sports": Sports, "Tech": Tech}
+chatRooms = {"General":General, "News": News}
 
-chatRooms = ["General", "News", "Sports", "Tech"]
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -43,15 +47,22 @@ def login():
 @app.route("/")
 @login_required
 def chat():
-    return render_template("chat.html", chatRooms=chatRooms)
+    roomList = chatRooms.keys()
+    return render_template("chat.html", chatRooms=roomList)
+
 
 @app.route("/changeRoom")
 def changeRoom():
     """AJAX call. Return messages for selected room"""
 
-    if request.method == "GET":
+    if request.method == "POST":
         room = request.args.get("room")
-        messages = room.getMessages()
+        messages = chatRooms[room].getMessages()
+
+        print()
+        print(messages)
+        print()
+
         return messages
 
 
@@ -61,35 +72,24 @@ def createRoom(data):
     roomTaken = True
     selection = data["newRoom"]
     if selection not in chatRooms:
-        chatRooms.append(selection)
         data["newRoom"] = ChatRoom(selection)
-        roomTaken = False 
-     
+        chatRooms[selection] = data["newRoom"]
+        roomTaken = False        
+
+    print()
+    print(chatRooms)
+    print()
     emit("announce room", {"selection": selection, "roomTaken": roomTaken}, broadcast=True)
 
 
 @socketio.on("create message")
-def createRoom(data):    
-
-    print()
-    print(data)
-    print(session["user_id"])
-    print()    
+def createMessage(data):    
+   
     message = data["newMessage"]
-    room = data["room"]
+    room = data["room"]    
+    chatRooms[room].addMessage(session["user_id"], message)    
      
     emit("announce message", {"message": message, "room": room, "user": session["user_id"]}, broadcast=True)
-
-# @socketio.on("change room")
-# def changeRoom(data):
-#     ChatRoom = data["roomName"]
-#     messages = ChatRoom.getMessages()
-#     emit("announce room change", {"ChatRoom": ChatRoom, "messages": messages}, broadcast=True)
-
-# @socketio.on("new message")
-# def newMessage(message):
-#     selection = message["selection"]
-#     emit("announce message", {"selection": selection}, broadcast=True)
 
 
 if __name__ == "__main__":

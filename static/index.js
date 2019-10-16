@@ -92,11 +92,26 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Add new item to messages list
             document.querySelector('#messages').append(li);
+
+            // Move chat window down
+            const chatWindow = document.querySelector(".chat");
+            // chatWindow.scrollTop = chatWindow.scrollHeight - chatWindow.clientHeight;
         }                
                    
     });    
 
     //////////////////////// Change Room /////////////////////////////////////////////
+
+    // Listen for room selection 
+    document.querySelector('#rooms').onclick = () => {
+        
+        // Initialize new request 
+        const request = new XMLHttpRequest();
+        const room = document.querySelector('#room').value
+        
+        alert(room)
+
+    }
 
 
 
