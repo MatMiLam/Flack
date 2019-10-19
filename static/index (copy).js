@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#submitMessage').disabled = true;
 
     // Enable button only if there is text in the input field
-    document.querySelector('#message').onkeyup = () => {        
+    document.querySelector('#message').onkeyup = () => {
         if (document.querySelector('#message').value.length > 0)
             document.querySelector('#submitMessage').disabled = false;
         else
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Listen for new message submission
     socket.on('connect', () => {
-        document.querySelector('#newMessage').onsubmit = () => {               
+        document.querySelector('#newMessage').onsubmit = () => {   
             const newMessage = document.querySelector('#message').value;
             const room = document.querySelector('#message').getAttribute("room"); 
             
@@ -86,9 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentRoom == room){
             
             // Create new message item for list
-            var li = document.createElement('li');
+            const li = document.createElement('li');
             // li.innerHTML = `<li id=${data.message}><a href="${data.message}"> <h4>${data.user}:</h4> ${data.message}</a></li>`        
-            li.innerHTML = `<li id=${data.message}><h4>${data.user}:</h4> ${data.message}</li>`        
+            li.innerHTML = `<li id=${data.message}><h4>${data.user}:</h4> ${data.message}</li>`;     
             
             // Add new item to messages list
             document.querySelector('#messages').append(li);
@@ -114,23 +114,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const data = JSON.parse(request.responseText)
                                                 
-                document.getElementById("message").setAttribute("room", data.room)  
-                document.getElementById("messages").innerHTML = ""              
-                
+                document.getElementById("message").setAttribute("room", data.room)                               
 
                 Object.keys(data.messages).forEach(function(key) {
-                    
-                    var message = key;
-                    var user = data.messages[key];
+                    // alert(key)
+                    // alert(data.messages[key])
+                    message = key;
+                    user = data.messages[key];
                     // document.getElementById("messages").innerHTML += ("<li>"+"<h4>"+user+":"+"</h4>"+" "+message+"</li>")
 
                     // Create new message item for list
-                    var li = document.createElement('li');
+                    let list = document.createElement('li');
                             
-                    li.innerHTML = `<li id="chatmessage"><h4>${user}:</h4> ${message}</li>`        
+                    list.innerHTML = `<li id="message"><h4>${user}:</h4> ${message}</li>`;     
                     
                     // Add new item to messages list
-                    document.querySelector('#messages').append(li);
+                    document.querySelector('#messages').append(list);
 
                 });                              
             }
@@ -147,3 +146,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }); 
                 
 });
+

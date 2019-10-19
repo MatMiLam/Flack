@@ -14,8 +14,8 @@
         <div class="roomList">
             <ul id="rooms">
                 {% for room in chatRooms %}            
-                    <li id="room">
-                        <a href="{{room}}">{{room}}</a>
+                    <li data-roomname="{{room}}" class="room">
+                        <a href="{{room}}">{{room}}</a>                        
                     </li>
                 {% endfor %}              
             </ul>

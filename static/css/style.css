@@ -88,6 +88,8 @@ body {
   background: #333;
   opacity: .70;
   text-align: center; }
+  .chatbar #newMessage {
+    margin: 15px; }
   .chatbar input.text-box {
     color: #fff;
     background-color: #555;
