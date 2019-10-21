@@ -17,6 +17,7 @@ class ChatRoom(object):
     def __init__(self, room):
         self.room = room
         self.messages[self.room] = {}
+        print(f"New {room} class created")
 
     def getMessages(self):
         return self.messages[self.room]
@@ -64,6 +65,7 @@ def changeRoom():
     """AJAX call. Return messages for selected room"""
 
     if request.method == "POST":
+        print("change room test")
         room = request.form.get("room")
         print("room test")
         print(room)

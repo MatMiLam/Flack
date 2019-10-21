@@ -38,9 +38,55 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         else
         {
+             
             // Create new item for list
             const li = document.createElement('li');
-            li.innerHTML = `<li id=${data.selection}><a href="${data.selection}">${data.selection}</a></li>`        
+            
+            li.dataset.roomname = data.selection;
+            li.className = ("room", "room");            
+            li.innerHTML = `<a href="${data.selection}">${data.selection}</a>`;  
+                
+            
+            li.onclick = function() {
+                
+                const request = new XMLHttpRequest();
+                const roomSelected = li.dataset.roomname;
+                request.open('POST', '/changeRoom')
+    
+                // Callback function for when request completes
+                request.onload = () => {
+                    
+                    const data = JSON.parse(request.responseText)
+                                                    
+                    document.getElementById("message").setAttribute("room", data.room)  
+                    document.getElementById("messages").innerHTML = ""              
+                    
+    
+                    Object.keys(data.messages).forEach(function(key) {
+                        
+                        var message = key;
+                        var user = data.messages[key];                    
+    
+                        // Create new message item for list
+                        var li = document.createElement('li');
+                                
+                        li.innerHTML = `<li id="chatmessage"><h4>${user}:</h4> ${message}</li>`        
+                        
+                        // Add new item to messages list
+                        document.querySelector('#messages').append(li);
+    
+                    });                              
+                }
+    
+                // Add data to send with request 
+                const data = new FormData();
+                data.append("room", roomSelected);
+    
+                // Send request 
+                request.send(data);
+                return false;
+
+            };
             
             // Add new item to chat room list
             document.querySelector('#rooms').append(li);
@@ -104,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Listen for room selection 
     document.querySelectorAll('.room').forEach(function(li) {
-        li.onclick = function() {
+        li.onclick = function() {                
             const request = new XMLHttpRequest();
             const roomSelected = li.dataset.roomname;
             request.open('POST', '/changeRoom')
@@ -121,8 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 Object.keys(data.messages).forEach(function(key) {
                     
                     var message = key;
-                    var user = data.messages[key];
-                    // document.getElementById("messages").innerHTML += ("<li>"+"<h4>"+user+":"+"</h4>"+" "+message+"</li>")
+                    var user = data.messages[key];                    
 
                     // Create new message item for list
                     var li = document.createElement('li');
