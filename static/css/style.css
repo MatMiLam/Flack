@@ -17,6 +17,7 @@ body {
 .grid {
   display: grid;
   grid-template-columns: 1fr 4fr;
+  grid-template-rows: 0fr;
   gap: 3px;
   padding: 5px;
   height: 100%; }
@@ -73,7 +74,6 @@ body {
   background: #333;
   opacity: .70;
   overflow-y: auto;
-  min-height: 5fr;
   justify-content: center; }
   .chat ul {
     text-align: left;

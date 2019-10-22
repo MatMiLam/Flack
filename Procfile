@@ -1,1 +1,1 @@
-web gunicorn application:app --log-level=DEBUG
+web gunicorn application:app --log-level=DEBUG -k eventlet
