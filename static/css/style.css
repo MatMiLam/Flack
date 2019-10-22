@@ -73,18 +73,21 @@ body {
   background: #333;
   opacity: .70;
   overflow-y: auto;
+  min-height: 5fr;
   justify-content: center; }
   .chat ul {
     text-align: left;
     list-style: none; }
     .chat ul li {
       margin: 12px;
-      width: 95%; }
+      width: 95%;
+      word-wrap: break-word; }
   .chat h4 {
     display: inline;
     color: #31d161; }
 
 .chatbar {
+  grid-row: 5/6;
   background: #333;
   opacity: .70;
   text-align: center; }

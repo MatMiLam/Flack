@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Move chat window down
             const chatWindow = document.querySelector(".chat");
-            // chatWindow.scrollTop = chatWindow.scrollHeight - chatWindow.clientHeight;
+            chatWindow.scrollTop = chatWindow.scrollHeight - chatWindow.clientHeight;
         }                
                    
     });    
