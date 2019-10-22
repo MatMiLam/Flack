@@ -4,4 +4,4 @@ psycopg2-binary
 Flask-SocketIO
 gunicorn
 requests
-gevent
+eventlet
