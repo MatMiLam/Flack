@@ -10,7 +10,7 @@ from helpers import login_required
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 app.config["SESSION_TYPE"] = "filesystem"
-socketio = SocketIO(app)
+socketio = SocketIO(app, ping_interval=20)
 Session(app)
 
 class ChatRoom(object):
