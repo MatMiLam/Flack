@@ -75,6 +75,15 @@ body {
   opacity: .70;
   overflow-y: auto;
   justify-content: center; }
+  .chat .roombar {
+    height: 35px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: #31d161; }
   .chat ul {
     text-align: left;
     list-style: none; }

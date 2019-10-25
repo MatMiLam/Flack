@@ -107,6 +107,19 @@ body {
     overflow-y: auto;        
     justify-content: center;
     
+
+    .roombar {
+        height: 35px;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        border-width: 4px;
+        border-style: solid;
+        border-radius: 10px;
+        border-color: $primary-color;
+    }
+
+        
     ul {                     
         text-align: left;  
         list-style: none;           
@@ -129,14 +142,12 @@ body {
     grid-row: 5/6;
     background: #333;
     opacity: .70;    
-    text-align: center;
-    
+    text-align: center;    
 
     #newMessage {
         margin: 15px;
     }
-    
-
+  
     input.text-box {
     color: #fff;
     background-color: #555;                    

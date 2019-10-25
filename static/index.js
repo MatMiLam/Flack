@@ -58,8 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     const data = JSON.parse(request.responseText)
                                                     
-                    document.getElementById("message").setAttribute("room", data.room)  
-                    document.getElementById("messages").innerHTML = ""              
+                    document.getElementById("message").setAttribute("room", data.room); 
+                    document.getElementById("messages").innerHTML = "";   
+                    // document.getElementsByClassName("roombar")[0].innerHTML = `Welcome to ${data.room}`
+                    document.querySelector('#message').setAttribute("placeholder", `You are in the ${data.room} Chatroom`);          document.querySelector('#message').disabled = false;            
                     
     
                     Object.keys(data.messages).forEach(function(key) {
@@ -160,8 +162,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const data = JSON.parse(request.responseText)
                                                 
-                document.getElementById("message").setAttribute("room", data.room)  
-                document.getElementById("messages").innerHTML = ""              
+                document.getElementById("message").setAttribute("room", data.room);  
+                document.getElementById("messages").innerHTML = "";                  
+                // document.getElementsByClassName("roombar")[0].innerHTML = `Welcome to ${data.room}`
+                document.querySelector('#message').setAttribute("placeholder", `You are in the ${data.room} Chatroom`);              
+                document.querySelector('#message').disabled = false;               
                 
 
                 Object.keys(data.messages).forEach(function(key) {

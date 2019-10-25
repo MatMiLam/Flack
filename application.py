@@ -3,6 +3,7 @@ import os
 from flask import Flask, session, render_template, request, request, redirect, jsonify
 from flask_socketio import SocketIO, emit
 from flask_session import Session
+from collections import OrderedDict
 
 from helpers import login_required
 
@@ -13,7 +14,8 @@ socketio = SocketIO(app)
 Session(app)
 
 class ChatRoom(object):
-    messages = {}
+    messages = OrderedDict()
+    # messageCount = 0
     def __init__(self, room):
         self.room = room
         self.messages[self.room] = {}
@@ -22,8 +24,7 @@ class ChatRoom(object):
     def getMessages(self):
         return self.messages[self.room]
 
-    def addMessage(self, user, message):
-        # self.messages[message] = user
+    def addMessage(self, user, message):        
         self.messages[self.room][message] = user
         print(len(self.messages))
         

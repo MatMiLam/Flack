@@ -24,20 +24,23 @@
     </div>     
 
     <div class="chat">
+        <!-- <div class="roombar">Please Select A Chatroom</div>         -->
         <ul id="messages">
             {% for message in messages %}
-                <li id="message">{{message}}</li>
+            <li id="print-message">{{message}}</li>
             {% endfor %}
-        </ul>    
-
+        </ul>           
     </div>
-        
+    
     <div class="chatbar">
+        
         <form id="newMessage" action="/chat-submit" method="POST" id="chat-box-text" name="chat-box-text">
-            <input id="message" room="General" class="text-box" type="text" autocomplete="off" autofocus>
+            <input id="message" room="General" class="text-box" type="text" autocomplete="off" autofocus disabled
+            placeholder="Please Select A Chatroom">
             <button id="submitMessage" type="submit">Send</button>                                        
         </form>    
-    </div>                       
+        
+    </div>  
 
     
     
