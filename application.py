@@ -94,11 +94,12 @@ def createMessage(data):
    
     message = data["newMessage"]
     room = data["room"]    
+    user = session["user_id"]
     chatRooms[room].addMessage(session["user_id"], message)  
     print(f"***** Creating a new message *****")
-    print(f"{room} {session["user_id"]} {message}")
+    print(f"{room} {user} {message}")
              
-    emit("announce message", {"message": message, "room": room, "user": session["user_id"]}, broadcast=True)
+    emit("announce message", {"message": message, "room": room, "user": user}, broadcast=True)
 
 
 if __name__ == "__main__":
