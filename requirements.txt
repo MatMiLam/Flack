@@ -2,6 +2,6 @@ Flask
 Flask-Session
 psycopg2-binary
 Flask-SocketIO
-gunicorn
+gunicorn==18.0.0
 requests
 eventlet
