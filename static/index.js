@@ -56,19 +56,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Callback function for when request completes
                 request.onload = () => {
                     
-                    const data = JSON.parse(request.responseText)
-                                                    
-                    document.getElementById("message").setAttribute("room", data.room); 
-                    document.getElementById("messages").innerHTML = "";   
-                    // document.getElementsByClassName("roombar")[0].innerHTML = `Welcome to ${data.room}`
-                    document.querySelector('#message').setAttribute("placeholder", `You are in the ${data.room} Chatroom`);          document.querySelector('#message').disabled = false;            
-                    
-    
-                    Object.keys(data.messages).forEach(function(key) {
-                        
-                        var message = key;
-                        var user = data.messages[key];                    
-    
+                    const data = JSON.parse(request.responseText)               
+                                                
+                    document.getElementById("message").setAttribute("room", data.room);  
+                    document.getElementById("messages").innerHTML = "";                                  
+                    document.querySelector('#message').setAttribute("placeholder", `You are in the ${data.room} Chatroom`);              
+                    document.querySelector('#message').disabled = false;  
+                                                                
+                    // Loop throuth the array of dicts 
+                    data.messages.forEach(function(element) {                    
+
+                        for (var key in element){                        
+                            var user = key;
+                            var message = element[key];
+                        }
+                                                                                
                         // Create new message item for list
                         var li = document.createElement('li');
                                 
@@ -76,8 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         
                         // Add new item to messages list
                         document.querySelector('#messages').append(li);
-    
-                    });                              
+
+                    });                   
                 }
     
                 // Add data to send with request 
@@ -160,20 +162,21 @@ document.addEventListener('DOMContentLoaded', () => {
             // Callback function for when request completes
             request.onload = () => {
                 
-                const data = JSON.parse(request.responseText)
+                const data = JSON.parse(request.responseText)               
                                                 
                 document.getElementById("message").setAttribute("room", data.room);  
-                document.getElementById("messages").innerHTML = "";                  
-                // document.getElementsByClassName("roombar")[0].innerHTML = `Welcome to ${data.room}`
+                document.getElementById("messages").innerHTML = "";                                  
                 document.querySelector('#message').setAttribute("placeholder", `You are in the ${data.room} Chatroom`);              
-                document.querySelector('#message').disabled = false;               
-                
+                document.querySelector('#message').disabled = false;  
+                                                              
+                // Loop throuth the array of dicts 
+                data.messages.forEach(function(element) {                    
 
-                Object.keys(data.messages).forEach(function(key) {
-                    
-                    var message = key;
-                    var user = data.messages[key];                    
-
+                    for (var key in element){                        
+                        var user = key;
+                        var message = element[key];
+                    }
+                                                                               
                     // Create new message item for list
                     var li = document.createElement('li');
                             

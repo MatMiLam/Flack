@@ -14,19 +14,21 @@ socketio = SocketIO(app, ping_interval=20)
 Session(app)
 
 class ChatRoom(object):
-    messages = OrderedDict()
-    # messageCount = 0
+    
     def __init__(self, room):
         self.room = room
-        self.messages[self.room] = {}
+        self.messages = []
+        # self.messages[self.room] = {}
         print(f"New {room} class created")
 
     def getMessages(self):
-        return self.messages[self.room]
+        return self.messages
 
-    def addMessage(self, user, message):        
-        self.messages[self.room][message] = user
-        print(len(self.messages))
+    def addMessage(self, user, message):               
+        self.messages.append({user: message})               
+        while len(self.messages) > 100:
+            del(self.messages[0])       
+        
         
 # Establish default rooms 
 General = ChatRoom("General")
@@ -66,16 +68,10 @@ def changeRoom():
     """AJAX call. Return messages for selected room"""
 
     if request.method == "POST":
-        print("change room test")
-        room = request.form.get("room")
-        print("room test")
-        print(room)
-        messages = chatRooms[room].getMessages()
-
-        print()
-        print(messages)
-        print("test")
-
+        
+        room = request.form.get("room")        
+        messages = chatRooms[room].getMessages()        
+       
         return jsonify({"messages": messages, "room": room})
 
 
@@ -87,11 +83,8 @@ def createRoom(data):
     if selection not in chatRooms:
         data["newRoom"] = ChatRoom(selection)
         chatRooms[selection] = data["newRoom"]
-        roomTaken = False        
-
-    print()
-    print(chatRooms)
-    print()
+        roomTaken = False       
+    
     emit("announce room", {"selection": selection, "roomTaken": roomTaken}, broadcast=True)
 
 
@@ -101,13 +94,7 @@ def createMessage(data):
     message = data["newMessage"]
     room = data["room"]    
     chatRooms[room].addMessage(session["user_id"], message)  
-    print()
-    print(type(chatRooms[room]))
-    print(chatRooms[room].getMessages())
-    print()
-    
-
-     
+             
     emit("announce message", {"message": message, "room": room, "user": session["user_id"]}, broadcast=True)
 
 
