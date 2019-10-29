@@ -17,8 +17,7 @@ class ChatRoom(object):
     
     def __init__(self, room):
         self.room = room
-        self.messages = []
-        # self.messages[self.room] = {}
+        self.messages = []        
         print(f"New {room} class created")
 
     def getMessages(self):
@@ -56,14 +55,14 @@ def login():
         return redirect("/")     
 
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 @login_required
 def chat():
     roomList = chatRooms.keys()
     return render_template("chat.html", chatRooms=roomList)
 
 
-@app.route("/changeRoom", methods=["GET", "POST"])
+@app.route("/changeRoom", methods=["POST"])
 def changeRoom():
     """AJAX call. Return messages for selected room"""
 
