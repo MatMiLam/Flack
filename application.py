@@ -18,7 +18,7 @@ class ChatRoom(object):
     def __init__(self, room):
         self.room = room
         self.messages = []        
-        print(f"New {room} class created")
+        print(f"***** New {room} class created *****")
 
     def getMessages(self):
         return self.messages
@@ -70,6 +70,7 @@ def changeRoom():
         
         room = request.form.get("room")        
         messages = chatRooms[room].getMessages()        
+        print(f"***** Changing to {room} *****")
        
         return jsonify({"messages": messages, "room": room})
 
@@ -82,7 +83,8 @@ def createRoom(data):
     if selection not in chatRooms:
         data["newRoom"] = ChatRoom(selection)
         chatRooms[selection] = data["newRoom"]
-        roomTaken = False       
+        roomTaken = False   
+    print(f"***** Creating {selection} room *****")    
     
     emit("announce room", {"selection": selection, "roomTaken": roomTaken}, broadcast=True)
 
@@ -93,6 +95,8 @@ def createMessage(data):
     message = data["newMessage"]
     room = data["room"]    
     chatRooms[room].addMessage(session["user_id"], message)  
+    print(f"***** Creating a new message *****")
+    print(f"{room} {session["user_id"]} {message}")
              
     emit("announce message", {"message": message, "room": room, "user": session["user_id"]}, broadcast=True)
 
