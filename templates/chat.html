@@ -14,8 +14,8 @@
         <div class="roomList">
             <ul id="rooms">
                 {% for room in chatRooms %}            
-                    <li data-roomname="{{room}}" class="room">
-                        <a href="{{room}}">{{room}}</a>                        
+                    <li data-roomname="{{room}}" class="room" id={{room}}>
+                        <a href="{{room}}">{{room}}  <i class="far fa-comments icon"></i> </a>                    
                     </li>
                 {% endfor %}              
             </ul>
@@ -40,9 +40,7 @@
             <button id="submitMessage" type="submit">Send</button>                                        
         </form>    
         
-    </div>  
-
-    
+    </div>      
     
 </div>
 {% endblock %}

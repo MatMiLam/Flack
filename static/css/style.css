@@ -2,131 +2,193 @@ body {
   background: #333 url(../img/gaming-green-keyboard-51415.jpg) no-repeat center center/cover;
   background-attachment: fixed;
   height: 100vh;
-  overflow: hidden; }
+  overflow: hidden;
+}
 
 .navbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   top: 0;
   z-index: 1;
   color: #31d161;
-  background: #333; }
-  .navbar .icon {
-    color: #fff; }
+  background: #333;
+}
+
+.navbar .icon {
+  color: #fff;
+}
 
 .grid {
+  display: -ms-grid;
   display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-template-rows: 0fr;
+  -ms-grid-columns: 1fr 4fr;
+      grid-template-columns: 1fr 4fr;
+  -ms-grid-rows: 0fr;
+      grid-template-rows: 0fr;
   gap: 3px;
   padding: 5px;
-  height: 100%; }
+  height: 100%;
+}
 
 .sidebar {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 1;
   grid-column: 1/2;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 5;
   grid-row: 1/6;
   background: #333;
   opacity: .70;
-  overflow-y: scroll; }
-  .sidebar .addRoom {
-    text-align: center; }
-    .sidebar .addRoom .line {
-      margin-top: 15px;
-      margin-bottom: 15px;
-      border-bottom: 1px solid #31d161; }
-  .sidebar input.text-box {
-    color: #fff;
-    background-color: #555;
-    width: 90%;
-    margin: 5px;
-    padding: 0 10px;
-    border-radius: 10px;
-    border: 1px solid #31d161;
-    text-align: center; }
-  .sidebar input[type=text]:focus {
-    border: 1px solid #31d161;
-    outline: none; }
-  .sidebar button {
-    background: #555;
-    color: #31d161;
-    width: 90%;
-    border-radius: 10px;
-    border: 1px solid #31d161; }
-    .sidebar button:hover {
-      background: #31d161;
-      color: #fff;
-      cursor: pointer; }
-  .sidebar a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 15px;
-    color: #fff;
-    display: block; }
-    .sidebar a:hover {
-      color: #31d161; }
-  .sidebar ul {
-    list-style: none;
-    padding-left: 0px; }
+  overflow-y: scroll;
+}
+
+.sidebar .addRoom {
+  text-align: center;
+}
+
+.sidebar .addRoom .line {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #31d161;
+}
+
+.sidebar input.text-box {
+  color: #fff;
+  background-color: #555;
+  width: 90%;
+  margin: 5px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid #31d161;
+  text-align: center;
+}
+
+.sidebar input[type=text]:focus {
+  border: 1px solid #31d161;
+  outline: none;
+}
+
+.sidebar button {
+  background: #555;
+  color: #31d161;
+  width: 90%;
+  border-radius: 10px;
+  border: 1px solid #31d161;
+}
+
+.sidebar button:hover {
+  background: #31d161;
+  color: #fff;
+  cursor: pointer;
+}
+
+.sidebar a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 15px;
+  color: #fff;
+  display: block;
+}
+
+.sidebar a:hover {
+  color: #31d161;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0px;
+}
 
 .chat {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 4;
   grid-row: 1/5;
   color: #fff;
   background: #333;
   opacity: .70;
   overflow-y: auto;
-  justify-content: center; }
-  .chat .roombar {
-    height: 35px;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    border-width: 4px;
-    border-style: solid;
-    border-radius: 10px;
-    border-color: #31d161; }
-  .chat ul {
-    text-align: left;
-    list-style: none; }
-    .chat ul li {
-      margin: 12px;
-      width: 95%;
-      word-wrap: break-word; }
-  .chat h4 {
-    display: inline;
-    color: #31d161; }
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.chat .roombar {
+  height: 35px;
+  text-align: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  border-width: 4px;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: #31d161;
+}
+
+.chat ul {
+  text-align: left;
+  list-style: none;
+}
+
+.chat ul li {
+  margin: 12px;
+  width: 95%;
+  word-wrap: break-word;
+}
+
+.chat h4 {
+  display: inline;
+  color: #31d161;
+}
 
 .chatbar {
+  -ms-grid-row: 5;
+  -ms-grid-row-span: 1;
   grid-row: 5/6;
   background: #333;
   opacity: .70;
-  text-align: center; }
-  .chatbar #newMessage {
-    margin: 15px; }
-  .chatbar input.text-box {
-    color: #fff;
-    background-color: #555;
-    width: 60%;
-    padding: 5px;
-    border-radius: 10px;
-    border: 3px solid #31d161; }
-  .chatbar input[type=text]:focus {
-    border: 3px solid #31d161;
-    outline: none; }
-  .chatbar button {
-    background: #555;
-    color: #31d161;
-    padding: 5px;
-    border-radius: 10px;
-    border: 3px solid #31d161; }
-    .chatbar button:hover {
-      background: #31d161;
-      color: #fff;
-      cursor: pointer; }
+  text-align: center;
+}
+
+.chatbar #newMessage {
+  margin: 15px;
+}
+
+.chatbar input.text-box {
+  color: #fff;
+  background-color: #555;
+  width: 60%;
+  padding: 5px;
+  border-radius: 10px;
+  border: 3px solid #31d161;
+}
+
+.chatbar input[type=text]:focus {
+  border: 3px solid #31d161;
+  outline: none;
+}
+
+.chatbar button {
+  background: #555;
+  color: #31d161;
+  padding: 5px;
+  border-radius: 10px;
+  border: 3px solid #31d161;
+}
+
+.chatbar button:hover {
+  background: #31d161;
+  color: #fff;
+  cursor: pointer;
+}
 
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent;
-  /* make scrollbar transparent */ }
+  /* make scrollbar transparent */
+}
 
 .form-wrap {
   background-color: #31d161;
@@ -134,25 +196,35 @@ body {
   margin-left: auto;
   margin-right: auto;
   padding-top: 25px;
-  opacity: 0.80; }
-  .form-wrap h3 {
-    color: #333;
-    text-align: center;
-    padding-bottom: 15px; }
-  .form-wrap .items {
-    text-align: center; }
-  .form-wrap .item {
-    padding: 10px; }
-  .form-wrap button {
-    color: #31d161;
-    background-color: #333;
-    border-radius: 10px;
-    border-color: #31d161; }
-    .form-wrap button:hover {
-      background: #31d161;
-      color: #fff;
-      border-radius: 5px;
-      border-color: #333;
-      cursor: pointer; }
+  opacity: 0.80;
+}
 
+.form-wrap h3 {
+  color: #333;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.form-wrap .items {
+  text-align: center;
+}
+
+.form-wrap .item {
+  padding: 10px;
+}
+
+.form-wrap button {
+  color: #31d161;
+  background-color: #333;
+  border-radius: 10px;
+  border-color: #31d161;
+}
+
+.form-wrap button:hover {
+  background: #31d161;
+  color: #fff;
+  border-radius: 5px;
+  border-color: #333;
+  cursor: pointer;
+}
 /*# sourceMappingURL=style.css.map */

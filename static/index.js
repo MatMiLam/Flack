@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-
+        
     // Connect to websocket
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);    
 
     //////////////////////// New Room /////////////////////////////////////////////
 
@@ -43,8 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const li = document.createElement('li');
             
             li.dataset.roomname = data.selection;
-            li.className = ("room", "room");            
-            li.innerHTML = `<a href="${data.selection}">${data.selection}</a>`;  
+            li.className = ("room", "room"); 
+            li.id = data.selection           
+            li.innerHTML = `<a href="${data.selection}">${data.selection} <i class="far fa-comments icon"></i></a>`;  
                 
             
             li.onclick = function() {
@@ -56,7 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Callback function for when request completes
                 request.onload = () => {
                     
-                    const data = JSON.parse(request.responseText)               
+                    const data = JSON.parse(request.responseText)  
+                    
+                    // Clear the new message notification 
+                    document.querySelector(`#rooms > #${roomSelected} > a > i`).style.color = "#fff";
                                                 
                     document.getElementById("message").setAttribute("room", data.room);  
                     document.getElementById("messages").innerHTML = "";                                  
@@ -146,7 +150,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Move chat window down
             const chatWindow = document.querySelector(".chat");
             chatWindow.scrollTop = chatWindow.scrollHeight - chatWindow.clientHeight;
-        }                
+        }  
+        else {
+            
+            document.querySelector(`#rooms > #${currentRoom} > a > i`).style.color = "rgb(49, 209, 97)";
+        }              
                    
     });    
 
@@ -162,7 +170,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Callback function for when request completes
             request.onload = () => {
                 
-                const data = JSON.parse(request.responseText)               
+                const data = JSON.parse(request.responseText)     
+                
+                // Clear the new message notification 
+                document.querySelector(`#rooms > #${roomSelected} > a > i`).style.color = "#fff";
                                                 
                 document.getElementById("message").setAttribute("room", data.room);  
                 document.getElementById("messages").innerHTML = "";                                  

@@ -13,6 +13,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 socketio = SocketIO(app, ping_interval=20)
 Session(app)
 
+
 class ChatRoom(object):
     
     def __init__(self, room):
@@ -52,7 +53,7 @@ def login():
     if request.method == "POST":
         username = request.form.get("username")
         session["user_id"] = username
-        return redirect("/")     
+        return redirect("/")  
 
 
 @app.route("/", methods=["GET"])
