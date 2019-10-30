@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             li.dataset.roomname = data.selection;
             li.className = ("room", "room"); 
-            li.id = data.selection           
+            li.id = data.selection;           
             li.innerHTML = `<a href="${data.selection}">${data.selection} <i class="far fa-comments icon"></i></a>`;  
                 
             
