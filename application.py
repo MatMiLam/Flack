@@ -10,7 +10,6 @@ from helpers import login_required
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 app.config["SESSION_TYPE"] = "filesystem"
-# socketio = SocketIO(app, ping_interval=20)
 socketio = SocketIO(app)
 Session(app)
 
@@ -35,10 +34,6 @@ class ChatRoom(object):
 General = ChatRoom("General")
 News = ChatRoom("News")
 
-# General.addMessage("user1", "This is message 1 for General chat")
-# General.addMessage("user2", "This is message 2 for General chat")
-# News.addMessage("user1", "This is message 1 for News chat")
-# News.addMessage("user2", "This is message 2 for News chat")
 
 # Store rooms in a dictionary to allow for easier access to the ChatRoom class 
 chatRooms = {"General":General, "News": News}

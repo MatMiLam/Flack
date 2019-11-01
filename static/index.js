@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Create new message item for list
             var li = document.createElement('li');
-            // li.innerHTML = `<li id=${data.message}><a href="${data.message}"> <h4>${data.user}:</h4> ${data.message}</a></li>`        
+                
             li.innerHTML = `<li id=${data.message}><h4>${data.user}:</h4> ${data.message}</li>`        
             
             // Add new item to messages list
