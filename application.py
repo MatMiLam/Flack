@@ -10,7 +10,8 @@ from helpers import login_required
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 app.config["SESSION_TYPE"] = "filesystem"
-socketio = SocketIO(app, ping_interval=20)
+# socketio = SocketIO(app, ping_interval=20)
+socketio = SocketIO(app)
 Session(app)
 
 
