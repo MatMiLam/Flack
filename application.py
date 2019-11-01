@@ -80,7 +80,7 @@ def changeRoom():
 def createRoom(data):       
 
     roomTaken = True
-    selection = data["newRoom"]
+    selection = data["newRoom"].replace(" ","-")
     if selection not in chatRooms:
         data["newRoom"] = ChatRoom(selection)
         chatRooms[selection] = data["newRoom"]

@@ -57,11 +57,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Callback function for when request completes
                 request.onload = () => {
                     
-                    const data = JSON.parse(request.responseText)  
-                    
+                    const data = JSON.parse(request.responseText) 
+                                              
                     // Clear the new message notification 
                     document.querySelector(`#rooms > #${roomSelected} > a > i`).style.color = "#fff";
-                                                
+                    
                     document.getElementById("message").setAttribute("room", data.room);  
                     document.getElementById("messages").innerHTML = "";                                  
                     document.querySelector('#message').setAttribute("placeholder", `You are in the ${data.room} Chatroom`);              
@@ -162,7 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Listen for room selection 
     document.querySelectorAll('.room').forEach(function(li) {
-        li.onclick = function() {                
+        li.onclick = function() {  
+                          
             const request = new XMLHttpRequest();
             const roomSelected = li.dataset.roomname;
             request.open('POST', '/changeRoom')
