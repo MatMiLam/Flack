@@ -4,6 +4,8 @@ from flask import Flask, session, render_template, request, request, redirect, j
 from flask_socketio import SocketIO, emit
 from flask_session import Session
 from collections import OrderedDict
+from datetime import datetime
+
 
 from helpers import login_required
 
@@ -24,8 +26,9 @@ class ChatRoom(object):
     def getMessages(self):
         return self.messages
 
-    def addMessage(self, user, message):               
-        self.messages.append({user: message})               
+    def addMessage(self, user, message, timeStamp):  
+        # timeStamp = datetime.now().replace(microsecond=0)       
+        self.messages.append({user: [message,timeStamp]})               
         while len(self.messages) > 100:
             del(self.messages[0])       
         
@@ -96,11 +99,12 @@ def createMessage(data):
     message = data["newMessage"]
     room = data["room"]    
     user = session["user_id"]
-    chatRooms[room].addMessage(session["user_id"], message)  
+    timeStamp = str(datetime.now().replace(microsecond=0))
+    chatRooms[room].addMessage(session["user_id"], message, timeStamp)  
     print(f"***** Creating a new message *****")
     print(f"{room} {user} {message}")
              
-    emit("announce message", {"message": message, "room": room, "user": user}, broadcast=True)
+    emit("announce message", {"message": message, "room": room, "user": user, "timeStamp": timeStamp}, broadcast=True)
 
 
 if __name__ == "__main__":

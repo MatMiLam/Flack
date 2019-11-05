@@ -143,6 +143,10 @@ body {
   color: #31d161;
 }
 
+.chat h6 {
+  color: #555;
+}
+
 .chatbar {
   -ms-grid-row: 5;
   -ms-grid-row-span: 1;
