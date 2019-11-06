@@ -75,6 +75,11 @@ def changeRoom():
         print(f"***** Changing to {room} *****")
 
         socketio.emit("enter room", {"currentUser": currentUser, "room": room, "oldRoom": oldRoom}, broadcast=True)
+
+        print()
+        print("After emit")
+        print(f"Length of messages {len(messages)}")
+        print()
        
         return jsonify({"messages": messages, "room": room,"currentUser": currentUser})
 
