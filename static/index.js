@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
         
     // Connect to websocket
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);    
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port, {
+        transports: ['polling']
+     });    
 
     //////////////////////// New Room /////////////////////////////////////////////
 
