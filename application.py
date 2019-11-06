@@ -78,6 +78,7 @@ def changeRoom():
 
         print()
         print("After emit")
+        print(f"Room is {room}")
         print(f"Length of messages {len(messages)}")
         print()
        
