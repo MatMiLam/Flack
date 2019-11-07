@@ -189,7 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         var user = key;
                         var message = element[key][0];
                         var dateTime = element[key][1];
-
                     }
                                                                                
                     // Create new message item for list
