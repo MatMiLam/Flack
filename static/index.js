@@ -168,6 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
                           
             const request = new XMLHttpRequest();
             const roomSelected = li.dataset.roomname;
+            const oldRoom = document.querySelector('#message').getAttribute("room");
+
             request.open('POST', '/changeRoom')
 
             // Callback function for when request completes
