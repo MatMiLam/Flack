@@ -72,13 +72,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         for (var key in element){                        
                             var user = key;
-                            var message = element[key];
+                            var message = element[key][0];
+                            var dateTime = element[key][1];
                         }
                                                                                 
                         // Create new message item for list
                         var li = document.createElement('li');
                                 
-                        li.innerHTML = `<li id="chatmessage"><h4>${user}:</h4> ${message}</li>`        
+                        li.innerHTML = `<li id="chatmessage"><h6>${dateTime}</h6><h4> ${user}:</h4>  ${message}</li>`             
                         
                         // Add new item to messages list
                         document.querySelector('#messages').append(li);
@@ -142,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Create new message item for list
             var li = document.createElement('li');
                 
-            li.innerHTML = `<li id=${data.message}><h4>${data.user}:</h4> ${data.message}</li>`        
+            li.innerHTML = `<li id=${data.message}><h6>${data.timeStamp}</h6><h4>${data.user}:</h4> ${data.message}</li>`           
             
             // Add new item to messages list
             document.querySelector('#messages').append(li);
@@ -186,13 +187,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     for (var key in element){                        
                         var user = key;
-                        var message = element[key];
+                        var message = element[key][0];
+                        var dateTime = element[key][1];
+
                     }
                                                                                
                     // Create new message item for list
-                    var li = document.createElement('li');
-                            
-                    li.innerHTML = `<li id="chatmessage"><h4>${user}:</h4> ${message}</li>`        
+                    var li = document.createElement('li');                           
+                          
+                    li.innerHTML = `<li id="chatmessage"><h6>${dateTime}</h6><h4> ${user}:</h4>  ${message}</li>`   
                     
                     // Add new item to messages list
                     document.querySelector('#messages').append(li);
