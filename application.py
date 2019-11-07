@@ -66,9 +66,14 @@ def changeRoom():
 
     if request.method == "POST":
         
-        room = request.form.get("room")        
+        room = request.form.get("room")  
+        oldRoom = request.form.get("oldRoom")             
         messages = chatRooms[room].getMessages()        
+        currentUser = session["user_id"]      
         print(f"***** Changing to {room} *****")
+
+        socketio.emit("enter room", {"currentUser": currentUser, "room": room, "oldRoom": oldRoom}, broadcast=True)
+
        
         return jsonify({"messages": messages, "room": room})
 
