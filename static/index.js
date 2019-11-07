@@ -206,6 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Add data to send with request 
             const data = new FormData();
             data.append("room", roomSelected);
+            data.append("oldRoom", oldRoom);
 
             // Send request 
             request.send(data);
