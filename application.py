@@ -11,7 +11,7 @@ from helpers import login_required
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 app.config["SESSION_TYPE"] = "filesystem"
-socketio = SocketIO(app)
+socketio = SocketIO(app, logger=True, engineio_logger=True)
 Session(app)
 
 
