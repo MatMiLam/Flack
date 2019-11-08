@@ -1,1 +1,1 @@
-web: gunicorn -k eventlet --no-sendfile application:app 
+web: gunicorn -k eventlet -w 1 --no-sendfile application:app 
