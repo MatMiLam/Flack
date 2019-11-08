@@ -61,6 +61,7 @@ def chat():
 
 
 @app.route("/changeRoom", methods=["POST"])
+@socketio.on("")
 def changeRoom():
     """AJAX call. Return messages for selected room"""
 
@@ -71,9 +72,8 @@ def changeRoom():
         messages = chatRooms[room].getMessages()        
         currentUser = session["user_id"]      
         print(f"***** Changing to {room} *****")
-
+        
         socketio.emit("enter room", {"currentUser": currentUser, "room": room, "oldRoom": oldRoom}, broadcast=True)
-
        
         return jsonify({"messages": messages, "room": room})
 
@@ -102,7 +102,7 @@ def createMessage(data):
     chatRooms[room].addMessage(session["user_id"], message, timeStamp)  
     print(f"***** Creating a new message *****")
     print(f"{room} {user} {message}")
-             
+              
     emit("announce message", {"message": message, "room": room, "user": user, "timeStamp": timeStamp}, broadcast=True)
 
 if __name__ == "__main__":
