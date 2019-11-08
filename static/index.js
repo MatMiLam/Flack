@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Listen for new room submission
     socket.on('connect', () => {
         document.querySelector('#newRoom').onsubmit = () => {   
-            const newRoom = document.querySelector('#name').value;   
+            let newRoom = document.querySelector('#name').value;   
             
             // Clear input field and disable button again
             document.querySelector('#name').value = '';
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
              
             // Create new item for list
-            const li = document.createElement('li');
+            let li = document.createElement('li');
             
             li.dataset.roomname = data.selection;
             li.className = ("room", "room"); 
@@ -51,14 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
             
             li.onclick = function() {
                 
-                const request = new XMLHttpRequest();
-                const roomSelected = li.dataset.roomname;
+                let request = new XMLHttpRequest();
+                let roomSelected = li.dataset.roomname;
                 request.open('POST', '/changeRoom')
     
                 // Callback function for when request completes
                 request.onload = () => {
                     
-                    const data = JSON.parse(request.responseText) 
+                    let data = JSON.parse(request.responseText) 
                                               
                     // Clear the new message notification 
                     document.querySelector(`#rooms > #${roomSelected} > a > i`).style.color = "#fff";
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
     
                 // Add data to send with request 
-                const data = new FormData();
+                let data = new FormData();
                 data.append("room", roomSelected);
     
                 // Send request 
@@ -121,8 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Listen for new message submission
     socket.on('connect', () => {
         document.querySelector('#newMessage').onsubmit = () => {               
-            const newMessage = document.querySelector('#message').value;
-            const room = document.querySelector('#message').getAttribute("room"); 
+            let newMessage = document.querySelector('#message').value;
+            let room = document.querySelector('#message').getAttribute("room"); 
             
             // Clear input field and disable button again
             document.querySelector('#message').value = '';
@@ -136,8 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // When a new message is announced, add to the unordered list
     socket.on('announce message', data => {
 
-        const room = document.querySelector('#message').getAttribute("room");
-        const currentRoom = data.room;
+        let room = document.querySelector('#message').getAttribute("room");
+        let currentRoom = data.room;
 
         if (currentRoom == room){
             
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#messages').append(li);
 
             // Move chat window down
-            const chatWindow = document.querySelector(".chat");
+            let chatWindow = document.querySelector(".chat");
             chatWindow.scrollTop = chatWindow.scrollHeight - chatWindow.clientHeight;
         }  
         else {
@@ -166,16 +166,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.room').forEach(function(li) {
         li.onclick = function() {  
                           
-            const request = new XMLHttpRequest();
-            const roomSelected = li.dataset.roomname;
-            const oldRoom = document.querySelector('#message').getAttribute("room");
+            let request = new XMLHttpRequest();
+            let roomSelected = li.dataset.roomname;
+            let oldRoom = document.querySelector('#message').getAttribute("room");
 
             request.open('POST', '/changeRoom')
 
             // Callback function for when request completes
             request.onload = () => {
                 
-                const data = JSON.parse(request.responseText)     
+                let data = JSON.parse(request.responseText)     
                 
                 // Clear the new message notification 
                 document.querySelector(`#rooms > #${roomSelected} > a > i`).style.color = "#fff";
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Add data to send with request 
-            const data = new FormData();
+            let data = new FormData();
             data.append("room", roomSelected);
             data.append("oldRoom", oldRoom);
 
@@ -222,9 +222,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     socket.on('enter room', data => {
-        const room = document.querySelector('#message').getAttribute("room");
-        const currentRoom = data.room;
-        const oldRoom = data.oldRoom;
+        let room = document.querySelector('#message').getAttribute("room");
+        let currentRoom = data.room;
+        let oldRoom = data.oldRoom;
         
         if (currentRoom == room){
             
