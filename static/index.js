@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
                           
             const request = new XMLHttpRequest();
             const roomSelected = li.dataset.roomname;
-            let oldRoom = document.querySelector('#message').getAttribute("room");
+            const oldRoom = document.querySelector('#message').getAttribute("room");
 
             request.open('POST', '/changeRoom')
 
@@ -202,37 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Add new item to messages list
                     document.querySelector('#messages').append(li);
 
-                });     
-                
-                // Announce when a user has entered the room 
-                socket.on('enter room', data => {
-                    const room = document.querySelector('#message').getAttribute("room");
-                    const currentRoom = data.room;
-                    let oldRoom = data.oldRoom;
-                    
-                    if (currentRoom == room){
-                        
-                        // Create new message item for list
-                        var li = document.createElement('li');
-                        
-                        li.innerHTML = `<li id="enter"><h4>${data.currentUser} has entered the ${currentRoom} chat room</h4></li>`  
-
-                        // Add new item to messages list
-                        document.querySelector('#messages').append(li);            
-                    }  
-                    
-                    // Announce when a user has left the room
-                    if (oldRoom == room && oldRoom != ""){
-                        
-                        // Create new message item for list
-                        var li = document.createElement('li');
-                            
-                        li.innerHTML = `<li id="leave"><h4>${data.currentUser} has left the ${oldRoom} chat room</h4></li>`  
-                            
-                        // Add new item to messages list
-                        document.querySelector('#messages').append(li);            
-                    }  
-                });  
+                });                                    
             }
 
             // Add data to send with request 
@@ -248,32 +218,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }); 
 
     // Announce when a user has entered the room 
-    // socket.on('enter room', data => {
-    //     const room = document.querySelector('#message').getAttribute("room");
-    //     const currentRoom = data.room;
-    //     const oldRoom = data.oldRoom;
+    socket.on('enter room', data => {
+        const room = document.querySelector('#message').getAttribute("room");
+        const currentRoom = data.room;
+        const oldRoom = data.oldRoom;
         
-    //     if (currentRoom == room){
+        if (currentRoom == room){
             
-    //         // Create new message item for list
-    //         var li = document.createElement('li');
+            // Create new message item for list
+            var li = document.createElement('li');
             
-    //         li.innerHTML = `<li id="enter"><h4>${data.currentUser} has entered the ${currentRoom} chat room</h4></li>`  
+            li.innerHTML = `<li id="enter"><h4>${data.currentUser} has entered the ${currentRoom} chat room</h4></li>`  
 
-    //         // Add new item to messages list
-    //         document.querySelector('#messages').append(li);            
-    //     }  
+            // Add new item to messages list
+            document.querySelector('#messages').append(li);
+            return false;            
+        }  
         
-    //     // Announce when a user has left the room
-    //     if (oldRoom == room && oldRoom != ""){
+        // Announce when a user has left the room
+        if (oldRoom == room && oldRoom != ""){
             
-    //         // Create new message item for list
-    //         var li = document.createElement('li');
+            // Create new message item for list
+            var li = document.createElement('li');
                 
-    //         li.innerHTML = `<li id="leave"><h4>${data.currentUser} has left the ${oldRoom} chat room</h4></li>`  
+            li.innerHTML = `<li id="leave"><h4>${data.currentUser} has left the ${oldRoom} chat room</h4></li>`  
                  
-    //         // Add new item to messages list
-    //         document.querySelector('#messages').append(li);            
-    //     }  
-    // });                   
+            // Add new item to messages list
+            document.querySelector('#messages').append(li);     
+            return false;       
+        }  
+    });                   
 });
