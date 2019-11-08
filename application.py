@@ -72,7 +72,7 @@ def changeRoom():
         currentUser = session["user_id"]      
         print(f"***** Changing to {room} *****")
         
-        socketio.emit("enter room", {"currentUser": currentUser, "room": room, "oldRoom": oldRoom}, broadcast=True)
+        # socketio.emit("enter room", {"currentUser": currentUser, "room": room, "oldRoom": oldRoom}, broadcast=True)
        
         return jsonify({"messages": messages, "room": room})
 
