@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
         
     // Connect to websocket
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port, {transports: ['websocket']});    
+    // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port, {transports: ['websocket']});    
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);    
 
     //////////////////////// New Room /////////////////////////////////////////////
 
@@ -221,8 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const room = document.querySelector('#message').getAttribute("room");
         const currentRoom = data.room;
         const oldRoom = data.oldRoom;
-
-        console.log(`room = ${room}, currentRoom = ${currentRoom}, oldRoom = ${oldRoom}`)
         
         if (currentRoom == room){
             

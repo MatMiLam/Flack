@@ -61,7 +61,6 @@ def chat():
 
 
 @app.route("/changeRoom", methods=["POST"])
-@socketio.on("")
 def changeRoom():
     """AJAX call. Return messages for selected room"""
 
