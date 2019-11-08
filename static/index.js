@@ -231,8 +231,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Create new message item for list
             var li = document.createElement('li');
             
-            li.innerHTML = `<li id="enter"><h4>${data.currentUser} has entered the ${currentRoom} chat room</h4></li>`        
-            
+            // li.innerHTML = `<li id="enter"><h4>${data.currentUser} has entered the ${currentRoom} chat room</h4></li>`        
+            li.innerHTML = "This is a test"
             // Add new item to messages list
             document.querySelector('#messages').append(li);            
         }  
@@ -243,8 +243,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Create new message item for list
             var li = document.createElement('li');
                 
-            li.innerHTML = `<li id="leave"><h4>${data.currentUser} has left the ${oldRoom} chat room</h4></li>`        
-            
+            // li.innerHTML = `<li id="leave"><h4>${data.currentUser} has left the ${oldRoom} chat room</h4></li>`        
+            li.innerHTML = "This is a test"
             // Add new item to messages list
             document.querySelector('#messages').append(li);            
         }  
