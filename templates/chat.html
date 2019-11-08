@@ -23,11 +23,10 @@
                          
     </div>     
 
-    <div class="chat">
-        <!-- <div class="roombar">Please Select A Chatroom</div>         -->
+    <div class="chat">        
         <ul id="messages">
             {% for message in messages %}
-            <li id="print-message">{{message}}</li>
+            <li id="chatmessage">{{message}}</li>
             {% endfor %}
         </ul>           
     </div>
