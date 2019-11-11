@@ -225,6 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const room = document.querySelector('#message').getAttribute("room");
         const currentRoom = data.room;
         const oldRoom = data.oldRoom;
+        console.log(`room = ${room} currentRoom = ${currentRoom} oldRoom = ${oldRoom}`)
         
         if (currentRoom == room && oldRoom != room){
             
