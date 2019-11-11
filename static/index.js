@@ -171,6 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const request = new XMLHttpRequest();
             const roomSelected = li.dataset.roomname;
             const oldRoom = document.querySelector('#message').getAttribute("room");
+            console.log(`roomSelected = ${roomSelected} oldRoom = ${oldRoom}`)
+
 
             request.open('POST', '/changeRoom')
 
@@ -225,7 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const room = document.querySelector('#message').getAttribute("room");
         const currentRoom = data.room;
         const oldRoom = data.oldRoom;
-        console.log(`room = ${room} currentRoom = ${currentRoom} oldRoom = ${oldRoom}`)
         
         if (currentRoom == room && oldRoom != room){
             
