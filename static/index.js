@@ -171,8 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const request = new XMLHttpRequest();
             const roomSelected = li.dataset.roomname;
             const oldRoom = document.querySelector('#message').getAttribute("room");
-            console.log(`roomSelected = ${roomSelected} oldRoom = ${oldRoom}`)
-
 
             request.open('POST', '/changeRoom')
 
@@ -227,6 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const room = document.querySelector('#message').getAttribute("room");
         const currentRoom = data.room;
         const oldRoom = data.oldRoom;
+        const currentUser = data.currentUser;
         
         if (currentRoom == room && oldRoom != room){
             
@@ -234,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
             var li = document.createElement('li');
             li.id = "enter";          
             
-            li.innerHTML = `<h4>${data.currentUser} has entered the ${currentRoom} chat room</h4>`  
+            li.innerHTML = `<h4>${currentUser} has entered the ${currentRoom} chat room</h4>`  
 
             // Add new item to messages list
             document.querySelector('#messages').append(li);
@@ -247,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
             var li = document.createElement('li');
             li.id = "leave";          
                 
-            li.innerHTML = `<h4>${data.currentUser} has left the ${oldRoom} chat room</h4>`  
+            li.innerHTML = `<h4>${currentUser} has left the ${oldRoom} chat room</h4>`  
                  
             // Add new item to messages list
             document.querySelector('#messages').append(li);     
