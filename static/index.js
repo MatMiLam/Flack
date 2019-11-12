@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.querySelector(`#rooms > #${roomSelected} > a > i`).style.color = "#fff";
                     
                     document.getElementById("message").setAttribute("room", data.room);  
-                    document.getElementById("messages").innerHTML = "";                                  
-                    document.querySelector('#message').setAttribute("placeholder", `You are in the ${data.room} Chatroom`);              
+                    // document.getElementById("messages").innerHTML = "";                                  
+                    document.querySelector('#message').setAttribute("placeholder", `You are in the ${data.room} Chatroom`);           
                     document.querySelector('#message').disabled = false;  
                                                                 
                     // Loop throuth the array of dicts 
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.querySelector(`#rooms > #${roomSelected} > a > i`).style.color = "#fff";
                                                 
                 document.getElementById("message").setAttribute("room", data.room);  
-                document.getElementById("messages").innerHTML = "";                                  
+                // document.getElementById("messages").innerHTML = "";                                  
                 document.querySelector('#message').setAttribute("placeholder", `You are in the ${data.room} Chatroom`);              
                 document.querySelector('#message').disabled = false;  
                                                               
