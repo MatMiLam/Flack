@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.querySelector(`#rooms > #${roomSelected} > a > i`).style.color = "#fff";
                                                 
                 document.getElementById("message").setAttribute("room", data.room);  
-                // document.getElementById("messages").innerHTML = "";                     
+                document.getElementById("messages").innerHTML = "";                     
                 document.querySelector('#message').setAttribute("placeholder", `You are in the ${data.room} Chatroom`);              
                 document.querySelector('#message').disabled = false;  
                                                               
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(`currentRoom = ${currentRoom}`)
         console.log(`oldRoom = ${oldRoom}`)
         
-        // if (currentRoom == room && oldRoom != room){
+        // if (currentRoom == room){
             
             // Create new message item for list
             var li = document.createElement('li');
