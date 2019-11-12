@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
             li.innerHTML = `<h4>${data.currentUser} has left the ${oldRoom} chat room</h4>`;  
             
             // Add new item to messages list
-            document.querySelector('#messages').append(li);     
+            document.querySelector('#entrance').append(li);     
         }  
         
         // Announce when a user has entered the room 
@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
             li.innerHTML = `<h4>${data.currentUser} has entered the ${currentRoom} chat room</h4>`;
             
             // Add new item to messages list
-            document.querySelector('#messages').append(li);
+            document.querySelector('#entrance').append(li);
         }  
         
         // Move chat window down
