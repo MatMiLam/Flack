@@ -240,17 +240,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }  
         
         // Announce when a user has left the room
-        if (oldRoom == room && oldRoom != ""){
+        // if (oldRoom == room && oldRoom != ""){
             
-            // Create new message item for list
-            var li = document.createElement('li');
-            li.id = "leave";          
+        //     // Create new message item for list
+        //     var li = document.createElement('li');
+        //     li.id = "leave";          
                 
-            li.innerHTML = `<h4>${currentUser} has left the ${oldRoom} chat room</h4>`  
+        //     li.innerHTML = `<h4>${currentUser} has left the ${oldRoom} chat room</h4>`  
                  
-            // Add new item to messages list
-            document.querySelector('#messages').append(li);     
-        }  
+        //     // Add new item to messages list
+        //     document.querySelector('#messages').append(li);     
+        // }  
 
         // Move chat window down
         const chatWindow = document.querySelector(".chat");
