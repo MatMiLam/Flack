@@ -225,8 +225,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const room = document.querySelector('#message').getAttribute("room");
         const currentRoom = data.room;
         const oldRoom = data.oldRoom;
+        console.log(`room = ${room}`)
+        console.log(`currentRoom = ${currentRoom}`)
+        console.log(`oldRoom = ${oldRoom}`)
         
-        if (currentRoom == room && oldRoom != room){
+        // if (currentRoom == room && oldRoom != room){
             
             // Create new message item for list
             var li = document.createElement('li');
@@ -236,20 +239,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Add new item to messages list
             document.querySelector('#messages').append(li);
-        }  
+        // }  
         
         // Announce when a user has left the room
-        if (oldRoom == room && oldRoom != ""){
+        // if (oldRoom == room && oldRoom != ""){
             
-            // Create new message item for list
-            var li = document.createElement('li');
-            li.id = "leave";          
+        //     // Create new message item for list
+        //     var li = document.createElement('li');
+        //     li.id = "leave";          
                 
-            li.innerHTML = `<h4>${data.currentUser} has left the ${oldRoom} chat room</h4>`  
+        //     li.innerHTML = `<h4>${data.currentUser} has left the ${oldRoom} chat room</h4>`  
                  
-            // Add new item to messages list
-            document.querySelector('#messages').append(li);     
-        }  
+        //     // Add new item to messages list
+        //     document.querySelector('#messages').append(li);     
+        // }  
 
         // Move chat window down
         const chatWindow = document.querySelector(".chat");
