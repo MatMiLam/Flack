@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         var li = document.createElement('li');
                         li.id = "chatmessage";         
                                 
-                        li.innerHTML = `<h6>${dateTime}</h6><h4> ${user}:</h4>  ${message}`             
+                        li.innerHTML = `<h6>${dateTime}</h6><h4> ${user}:</h4>  ${message}`;             
                         
                         // Add new item to messages list
                         document.querySelector('#messages').append(li);
@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     var li = document.createElement('li');  
                     li.id = "chatmessage";         
                           
-                    li.innerHTML = `<h6>${dateTime}</h6><h4> ${user}:</h4>  ${message}`   
+                    li.innerHTML = `<h6>${dateTime}</h6><h4> ${user}:</h4>  ${message}`;   
                     
                     // Add new item to messages list
                     document.querySelector('#messages').append(li);
