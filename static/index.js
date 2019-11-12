@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
             var li = document.createElement('li');
             li.id = "enter";          
             
-            li.innerHTML = `<h4>${currentUser} has entered the ${currentRoom} chat room</h4>`  
+            li.innerHTML = `<h4>${currentUser} has entered the ${currentRoom} chat room</h4>`;  
 
             // Add new item to messages list
             document.querySelector('#messages').append(li);
@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
         //     var li = document.createElement('li');
         //     li.id = "leave";          
                 
-        //     li.innerHTML = `<h4>${currentUser} has left the ${oldRoom} chat room</h4>`  
+        //     li.innerHTML = `<h4>${currentUser} has left the ${oldRoom} chat room</h4>`;  
                  
         //     // Add new item to messages list
         //     document.querySelector('#messages').append(li);     
