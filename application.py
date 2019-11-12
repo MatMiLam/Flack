@@ -103,6 +103,7 @@ def createMessage(data):
     print(f"{room} {user} {message}")
               
     emit("announce message", {"message": message, "room": room, "user": user, "timeStamp": timeStamp}, broadcast=True)
+    
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)
