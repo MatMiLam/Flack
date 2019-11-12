@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Add new item to messages list
             document.querySelector('#messages').append(li);
-        }  
+        };
         
         // Announce when a user has left the room
         // if (oldRoom == room && oldRoom != ""){
