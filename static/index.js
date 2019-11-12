@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         document.querySelector('#messages').append(li);
 
                     });                   
-                }
+                };
     
                 // Add data to send with request 
                 const data = new FormData();
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.querySelector('#messages').append(li);
 
                 });                                    
-            }
+            };
 
             // Add data to send with request 
             const data = new FormData();
