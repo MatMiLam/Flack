@@ -4,16 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port, {transports: ['websocket']});    
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port); 
     
-    // function announceUser(roomSelected, oldRoom) {
-    //     socket.on('connect', () => {
-    //         console.log(`socket on test`)
-    //         console.log(roomSelected)
-    //         console.log(oldRoom)
-    //         socket.emit('room change', {'room': roomSelected, 'oldRoom': oldRoom})
-    //         return false;
-    //     });      
-    // } 
-
+    
     //////////////////////// New Room /////////////////////////////////////////////
 
     // By default, submit button is disabled
@@ -215,10 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Add new item to messages list
                     document.querySelector('#messages').append(li);
 
-                });   
-                
-                console.log(`roomSelected = ${roomSelected} oldRoom = ${oldRoom}`)
-                announceUser(roomSelected, oldRoom);                
+                });                  
                 
             }
             
@@ -231,37 +219,25 @@ document.addEventListener('DOMContentLoaded', () => {
             request.send(data);            
             return false;            
         };
-
-
-    }); 
         
-    
-    function announceUser(roomSelected, oldRoom) {
-        console.log(`This is a test of the function`)
-        socket.on('connect', () => {
-            console.log(`socket on test`)
-            console.log(roomSelected)
-            console.log(oldRoom)
-            socket.emit('room change', {'room': roomSelected, 'oldRoom': oldRoom})
-            return false;
-        });      
-    } 
+    }); 
+
+    // This section was an attempt to get the user announcement after the room change 
+    // socket.on('connect', () => {
+    //     socket.emit('room change', {'room': roomSelected, 'oldRoom': oldRoom})
+    //     return false;
+    // });               
 
     // Announce when a user has entered the room 
     socket.on('announce user', data => {
         const room = document.querySelector('#message').getAttribute("room");
         const currentRoom = data.room;
         const oldRoom = data.oldRoom;
-        const changingUser = data.currentUser;
-        const currentUser = document.querySelector('.welcome').getAttribute("id");
-
-        // console.log(`room = ${room}`)
-        // console.log(`currentRoom = ${currentRoom}`)
-        // console.log(`oldRoom = ${oldRoom}`)
-        // console.log(`changingUser = ${changingUser}`)
-        // console.log(`currentUser = ${currentUser}`)        
+        // const changingUser = data.currentUser;
+        // const currentUser = document.querySelector('.welcome').getAttribute("id");
+             
         
-        // if (currentRoom == room){
+        if (currentRoom == room){
             
             // Create new message item for list
             var li = document.createElement('li');
@@ -271,20 +247,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Add new item to messages list
             document.querySelector('#messages').append(li);
-        // }  
+        }  
         
         // Announce when a user has left the room
-        // if (oldRoom == room && oldRoom != ""){
+        if (oldRoom == room && oldRoom != ""){
             
-        //     // Create new message item for list
-        //     var li = document.createElement('li');
-        //     li.id = "leave";          
+            // Create new message item for list
+            var li = document.createElement('li');
+            li.id = "leave";          
                 
-        //     li.innerHTML = `<h4>${data.currentUser} has left the ${oldRoom} chat room</h4>`  
+            li.innerHTML = `<h4>${data.currentUser} has left the ${oldRoom} chat room</h4>`  
                  
-        //     // Add new item to messages list
-        //     document.querySelector('#messages').append(li);     
-        // }  
+            // Add new item to messages list
+            document.querySelector('#messages').append(li);     
+        }  
 
         // Move chat window down
         const chatWindow = document.querySelector(".chat");
