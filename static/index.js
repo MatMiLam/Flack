@@ -2,7 +2,17 @@ document.addEventListener('DOMContentLoaded', () => {
         
     // Connect to websocket
     // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port, {transports: ['websocket']});    
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);    
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port); 
+    
+    // function announceUser(roomSelected, oldRoom) {
+    //     socket.on('connect', () => {
+    //         console.log(`socket on test`)
+    //         console.log(roomSelected)
+    //         console.log(oldRoom)
+    //         socket.emit('room change', {'room': roomSelected, 'oldRoom': oldRoom})
+    //         return false;
+    //     });      
+    // } 
 
     //////////////////////// New Room /////////////////////////////////////////////
 
@@ -176,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Callback function for when request completes
             request.onload = () => {
-                
+                                
                 const data = JSON.parse(request.responseText)     
                 
                 // Clear the new message notification 
@@ -186,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById("messages").innerHTML = "";                     
                 document.querySelector('#message').setAttribute("placeholder", `You are in the ${data.room} Chatroom`);              
                 document.querySelector('#message').disabled = false;  
-                                                              
+                                                            
                 // Loop throuth the array of dicts 
                 data.messages.forEach(function(element) {                    
 
@@ -195,39 +205,61 @@ document.addEventListener('DOMContentLoaded', () => {
                         var message = element[key][0];
                         var dateTime = element[key][1];
                     }
-                                                                               
+                                                                            
                     // Create new message item for list
                     var li = document.createElement('li');  
                     li.id = "chatmessage";         
-                          
+                        
                     li.innerHTML = `<h6>${dateTime}</h6><h4> ${user}:</h4>  ${message}`   
                     
                     // Add new item to messages list
                     document.querySelector('#messages').append(li);
 
-                });                                    
+                });   
+                
+                console.log(`roomSelected = ${roomSelected} oldRoom = ${oldRoom}`)
+                announceUser(roomSelected, oldRoom);                
+                
             }
-
+            
             // Add data to send with request 
             const data = new FormData();
             data.append("room", roomSelected);
             data.append("oldRoom", oldRoom);
-
+            
             // Send request 
-            request.send(data);
-            return false;
-
+            request.send(data);            
+            return false;            
         };
+
+
     }); 
+        
+    
+    function announceUser(roomSelected, oldRoom) {
+        console.log(`This is a test of the function`)
+        socket.on('connect', () => {
+            console.log(`socket on test`)
+            console.log(roomSelected)
+            console.log(oldRoom)
+            socket.emit('room change', {'room': roomSelected, 'oldRoom': oldRoom})
+            return false;
+        });      
+    } 
 
     // Announce when a user has entered the room 
-    socket.on('enter room', data => {
+    socket.on('announce user', data => {
         const room = document.querySelector('#message').getAttribute("room");
         const currentRoom = data.room;
         const oldRoom = data.oldRoom;
-        console.log(`room = ${room}`)
-        console.log(`currentRoom = ${currentRoom}`)
-        console.log(`oldRoom = ${oldRoom}`)
+        const changingUser = data.currentUser;
+        const currentUser = document.querySelector('.welcome').getAttribute("id");
+
+        // console.log(`room = ${room}`)
+        // console.log(`currentRoom = ${currentRoom}`)
+        // console.log(`oldRoom = ${oldRoom}`)
+        // console.log(`changingUser = ${changingUser}`)
+        // console.log(`currentUser = ${currentUser}`)        
         
         // if (currentRoom == room){
             

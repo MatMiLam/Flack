@@ -56,6 +56,7 @@ def login():
 @app.route("/", methods=["GET"])
 @login_required
 def chat():
+    
     roomList = chatRooms.keys()
     return render_template("chat.html", chatRooms=roomList)
 
@@ -72,7 +73,7 @@ def changeRoom():
         currentUser = session["user_id"]      
         print(f"***** Changing to {room} *****")
         
-        socketio.emit("enter room", {"currentUser": currentUser, "room": room, "oldRoom": oldRoom}, broadcast=True)
+        # socketio.emit("enter room", {"currentUser": currentUser, "room": room, "oldRoom": oldRoom}, broadcast=True)
        
         return jsonify({"messages": messages, "room": room})
 
@@ -89,6 +90,16 @@ def createRoom(data):
     print(f"***** Creating {selection} room *****")    
     
     emit("announce room", {"selection": selection, "roomTaken": roomTaken}, broadcast=True)
+    
+
+@socketio.on("room change")
+def roomChange(data):
+
+    room = data["room"]    
+    oldRoom = data["oldRoom"]   
+    currentUser = session["user_id"]      
+
+    emit("announce user", {"currentUser": currentUser, "room": room, "oldRoom": oldRoom}, broadcast=True)
 
 
 @socketio.on("create message")
@@ -103,7 +114,7 @@ def createMessage(data):
     print(f"{room} {user} {message}")
               
     emit("announce message", {"message": message, "room": room, "user": user, "timeStamp": timeStamp}, broadcast=True)
-    
+
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)
