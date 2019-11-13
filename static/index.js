@@ -208,6 +208,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 });                  
                 
+
+                // This section was an attempt to get the user announcement after the room change 
+                // but socket is not available inside the function
+                // socket.on('connect', () => {
+                //     socket.emit('room change', {'room': roomSelected, 'oldRoom': oldRoom})
+                //     return false;
+                // });               
+                
             }
             
             // Add data to send with request 
@@ -222,11 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
     }); 
 
-    // This section was an attempt to get the user announcement after the room change 
-    // socket.on('connect', () => {
-    //     socket.emit('room change', {'room': roomSelected, 'oldRoom': oldRoom})
-    //     return false;
-    // });               
 
     // Announce when a user has entered the room 
     socket.on('announce user', data => {
