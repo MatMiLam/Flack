@@ -3,6 +3,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Connect to websocket
     // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port, {transports: ['websocket']});    
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+
+
+    //////////////////////// Prepare to re-enter room last visited ////////////////
+
+    socket.on('connect', () => {
+
+        const room = document.querySelector('#message').getAttribute("room");
+        console.log(`The room is ${room}`)
+        if (room != "first-time-user") {
+            console.log(`Not a first time user`)
+            document.querySelector('#message').setAttribute("placeholder", `You are in the ${room} Chatroom`);              
+            document.querySelector('#message').disabled = false;  
+            socket.emit('room change', {'room': room, 'oldRoom': "none"})
+            return false
+        }
+
+    });
    
     
     //////////////////////// New Room /////////////////////////////////////////////

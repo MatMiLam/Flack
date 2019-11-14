@@ -39,6 +39,9 @@ News = ChatRoom("News")
 # Store rooms in a dictionary to allow for easier access to the ChatRoom class 
 chatRooms = {"General":General, "News": News}
 
+# Store the users last entered room
+lastEntered = {}
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -50,6 +53,7 @@ def login():
     if request.method == "POST":
         username = request.form.get("username")
         session["user_id"] = username
+        lastEntered[username] = "first-time-user"
         return redirect("/")  
 
 
@@ -58,9 +62,15 @@ def login():
 def chat():
     
     roomList = chatRooms.keys()
-    currentUser = session["user_id"]      
+    currentUser = session["user_id"]     
+    lastRoom = lastEntered[currentUser]     
 
-    return render_template("chat.html", chatRooms=roomList, currentUser=currentUser)
+    if lastRoom != "first-time-user":
+        messages = chatRooms[lastRoom].getMessages()  
+    else:     
+        messages = ""
+    
+    return render_template("chat.html", chatRooms=roomList, currentUser=currentUser, messages=messages, currentRoom=lastRoom)
 
 
 @app.route("/changeRoom", methods=["POST"])
@@ -70,9 +80,11 @@ def changeRoom():
     if request.method == "POST":
         
         room = request.form.get("room")  
-        oldRoom = request.form.get("oldRoom")             
+        # oldRoom = request.form.get("oldRoom")             
         messages = chatRooms[room].getMessages()        
-        currentUser = session["user_id"]      
+        currentUser = session["user_id"]
+        lastEntered[currentUser] = room
+
         print(f"***** Changing to {room} *****")
         
         # socketio.emit("announce user", {"currentUser": currentUser, "room": room, "oldRoom": oldRoom}, broadcast=True)
@@ -92,6 +104,7 @@ def createRoom(data):
     print(f"***** Creating {selection} room *****")    
     
     emit("announce room", {"selection": selection, "roomTaken": roomTaken}, broadcast=True)
+
     
 # Attempt to get the user announcement after the room change 
 @socketio.on("room change")
