@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-
+        
     // Connect to websocket
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-
+    // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port, {transports: ['websocket']});    
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port); 
+    
+    
     //////////////////////// New Room /////////////////////////////////////////////
 
     // By default, submit button is disabled
@@ -38,9 +40,65 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         else
         {
+             
             // Create new item for list
             const li = document.createElement('li');
-            li.innerHTML = `<li id=${data.selection}><a href="${data.selection}">${data.selection}</a></li>`        
+            
+            li.dataset.roomname = data.selection;
+            li.className = ("room", "room"); 
+            li.id = data.selection;           
+            li.innerHTML = `<a href="${data.selection}">${data.selection} <i class="far fa-comments icon"></i></a>`;  
+                
+            
+            li.onclick = function() {
+                
+                const request = new XMLHttpRequest();
+                const roomSelected = li.dataset.roomname;
+                request.open('POST', '/changeRoom')
+    
+                // Callback function for when request completes
+                request.onload = () => {
+                    
+                    const data = JSON.parse(request.responseText) 
+                                              
+                    // Clear the new message notification 
+                    document.querySelector(`#rooms > #${roomSelected} > a > i`).style.color = "#fff";
+                    
+                    document.getElementById("message").setAttribute("room", data.room);  
+                    document.getElementById("messages").innerHTML = "";                                  
+                    document.querySelector('#message').setAttribute("placeholder", `You are in the ${data.room} Chatroom`);              
+                    document.querySelector('#message').disabled = false;  
+                                                                
+                    // Loop throuth the array of dicts 
+                    data.messages.forEach(function(element) {                    
+
+                        for (var key in element){                        
+                            var user = key;
+                            var message = element[key][0];
+                            var dateTime = element[key][1];
+                        }
+                                                                                
+                        // Create new message item for list
+                        var li = document.createElement('li');
+                        li.id = "chatmessage";         
+                                
+                        li.innerHTML = `<h6>${dateTime}</h6><h4> ${user}:</h4>  ${message}`             
+                        
+                        // Add new item to messages list
+                        document.querySelector('#messages').append(li);
+
+                    });                   
+                }
+    
+                // Add data to send with request 
+                const data = new FormData();
+                data.append("room", roomSelected);
+    
+                // Send request 
+                request.send(data);
+                return false;
+
+            };
             
             // Add new item to chat room list
             document.querySelector('#rooms').append(li);
@@ -87,16 +145,21 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Create new message item for list
             var li = document.createElement('li');
-            // li.innerHTML = `<li id=${data.message}><a href="${data.message}"> <h4>${data.user}:</h4> ${data.message}</a></li>`        
-            li.innerHTML = `<li id=${data.message}><h4>${data.user}:</h4> ${data.message}</li>`        
+            li.id = "chatmessage";         
+                
+            li.innerHTML = `<h6>${data.timeStamp}</h6><h4>${data.user}:</h4> ${data.message}`           
             
             // Add new item to messages list
             document.querySelector('#messages').append(li);
 
             // Move chat window down
             const chatWindow = document.querySelector(".chat");
-            // chatWindow.scrollTop = chatWindow.scrollHeight - chatWindow.clientHeight;
-        }                
+            chatWindow.scrollTop = chatWindow.scrollHeight - chatWindow.clientHeight;
+        }  
+        else {
+            
+            document.querySelector(`#rooms > #${currentRoom} > a > i`).style.color = "rgb(49, 209, 97)";
+        }              
                    
     });    
 
@@ -104,46 +167,107 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Listen for room selection 
     document.querySelectorAll('.room').forEach(function(li) {
-        li.onclick = function() {                
+        li.onclick = function() {  
+                          
             const request = new XMLHttpRequest();
             const roomSelected = li.dataset.roomname;
+            const oldRoom = document.querySelector('#message').getAttribute("room");
+
             request.open('POST', '/changeRoom')
 
             // Callback function for when request completes
             request.onload = () => {
+                                
+                const data = JSON.parse(request.responseText)     
                 
-                const data = JSON.parse(request.responseText)
+                // Clear the new message notification 
+                document.querySelector(`#rooms > #${roomSelected} > a > i`).style.color = "#fff";
                                                 
-                document.getElementById("message").setAttribute("room", data.room)  
-                document.getElementById("messages").innerHTML = ""              
-                
+                document.getElementById("message").setAttribute("room", data.room);  
+                document.getElementById("messages").innerHTML = "";                     
+                document.querySelector('#message').setAttribute("placeholder", `You are in the ${data.room} Chatroom`);              
+                document.querySelector('#message').disabled = false;  
+                                                            
+                // Loop throuth the array of dicts 
+                data.messages.forEach(function(element) {                    
 
-                Object.keys(data.messages).forEach(function(key) {
-                    
-                    var message = key;
-                    var user = data.messages[key];
-                    // document.getElementById("messages").innerHTML += ("<li>"+"<h4>"+user+":"+"</h4>"+" "+message+"</li>")
-
+                    for (var key in element){                        
+                        var user = key;
+                        var message = element[key][0];
+                        var dateTime = element[key][1];
+                    }
+                                                                            
                     // Create new message item for list
-                    var li = document.createElement('li');
-                            
-                    li.innerHTML = `<li id="chatmessage"><h4>${user}:</h4> ${message}</li>`        
+                    var li = document.createElement('li');  
+                    li.id = "chatmessage";         
+                        
+                    li.innerHTML = `<h6>${dateTime}</h6><h4> ${user}:</h4>  ${message}`   
                     
                     // Add new item to messages list
                     document.querySelector('#messages').append(li);
 
-                });                              
-            }
+                });                  
+                
 
+                // This section was an attempt to get the user announcement after the room change 
+                // but socket is not available inside the function
+                // socket.on('connect', () => {
+                //     socket.emit('room change', {'room': roomSelected, 'oldRoom': oldRoom})
+                //     return false;
+                // });               
+                
+            }
+            
             // Add data to send with request 
             const data = new FormData();
             data.append("room", roomSelected);
-
+            data.append("oldRoom", oldRoom);
+            
             // Send request 
-            request.send(data);
-            return false;
-
+            request.send(data);            
+            return false;            
         };
+        
     }); 
+
+
+    // Announce when a user has entered the room 
+    socket.on('announce user', data => {
+        const room = document.querySelector('#message').getAttribute("room");
+        const currentRoom = data.room;
+        const oldRoom = data.oldRoom;
+        // const changingUser = data.currentUser;
+        // const currentUser = document.querySelector('.welcome').getAttribute("id");
+             
+        
+        if (currentRoom == room){
+            
+            // Create new message item for list
+            var li = document.createElement('li');
+            li.id = "enter";          
+            
+            li.innerHTML = `<h4>${data.currentUser} has entered the ${currentRoom} chat room</h4>`  
+
+            // Add new item to messages list
+            document.querySelector('#messages').append(li);
+        }  
+        
+        // Announce when a user has left the room
+        if (oldRoom == room && oldRoom != ""){
+            
+            // Create new message item for list
+            var li = document.createElement('li');
+            li.id = "leave";          
                 
+            li.innerHTML = `<h4>${data.currentUser} has left the ${oldRoom} chat room</h4>`  
+                 
+            // Add new item to messages list
+            document.querySelector('#messages').append(li);     
+        }  
+
+        // Move chat window down
+        const chatWindow = document.querySelector(".chat");
+        chatWindow.scrollTop = chatWindow.scrollHeight - chatWindow.clientHeight;
+
+    });                   
 });

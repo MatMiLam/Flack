@@ -21,6 +21,10 @@ body {
   color: #fff;
 }
 
+.navbar .user {
+  padding-right: 15px;
+}
+
 .grid {
   display: -ms-grid;
   display: grid;

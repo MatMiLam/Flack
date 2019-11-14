@@ -58,7 +58,9 @@ def login():
 def chat():
     
     roomList = chatRooms.keys()
-    return render_template("chat.html", chatRooms=roomList)
+    currentUser = session["user_id"]      
+
+    return render_template("chat.html", chatRooms=roomList, currentUser=currentUser)
 
 
 @app.route("/changeRoom", methods=["POST"])
@@ -73,7 +75,7 @@ def changeRoom():
         currentUser = session["user_id"]      
         print(f"***** Changing to {room} *****")
         
-        socketio.emit("announce user", {"currentUser": currentUser, "room": room, "oldRoom": oldRoom}, broadcast=True)
+        # socketio.emit("announce user", {"currentUser": currentUser, "room": room, "oldRoom": oldRoom}, broadcast=True)
        
         return jsonify({"messages": messages, "room": room})
 
@@ -92,14 +94,14 @@ def createRoom(data):
     emit("announce room", {"selection": selection, "roomTaken": roomTaken}, broadcast=True)
     
 # Attempt to get the user announcement after the room change 
-# @socketio.on("room change")
-# def roomChange(data):
+@socketio.on("room change")
+def roomChange(data):
 
-#     room = data["room"]    
-#     oldRoom = data["oldRoom"]   
-#     currentUser = session["user_id"]      
+    room = data["room"]    
+    oldRoom = data["oldRoom"]   
+    currentUser = session["user_id"]      
 
-#     emit("announce user", {"currentUser": currentUser, "room": room, "oldRoom": oldRoom}, broadcast=True)
+    emit("announce user", {"currentUser": currentUser, "room": room, "oldRoom": oldRoom}, broadcast=True)
 
 
 @socketio.on("create message")
