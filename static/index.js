@@ -182,55 +182,62 @@ document.addEventListener('DOMContentLoaded', () => {
                 const roomSelected = li.dataset.roomname;
                 const oldRoom = document.querySelector('#message').getAttribute("room");
 
-                request.open('POST', '/changeRoom')
-
-                // Callback function for when request completes
-                request.onload = () => {
-                                    
-                    const data = JSON.parse(request.responseText)     
+                if (roomSelected != oldRoom) {
                     
-                    // Clear the new message notification 
-                    document.querySelector(`#rooms > #${roomSelected} > a > i`).style.color = "#fff";
-                                                    
-                    document.getElementById("message").setAttribute("room", data.room);  
-                    document.getElementById("messages").innerHTML = "";                     
-                    document.querySelector('#message').setAttribute("placeholder", `You are in the ${data.room} Chatroom`);              
-                    document.querySelector('#message').disabled = false;  
-                                                                
-                    // Loop throuth the array of dicts 
-                    data.messages.forEach(function(element) {                    
-
-                        for (var key in element){                        
-                            var user = key;
-                            var message = element[key][0];
-                            var dateTime = element[key][1];
-                        }
-                                                                                
-                        // Create new message item for list
-                        var li = document.createElement('li');  
-                        li.id = "chatmessage";         
-                            
-                        li.innerHTML = `<h6>${dateTime}</h6><h4> ${user}:</h4>  ${message}`   
+                    request.open('POST', '/changeRoom')
+    
+                    // Callback function for when request completes
+                    request.onload = () => {
+                                        
+                        const data = JSON.parse(request.responseText)     
                         
-                        // Add new item to messages list
-                        document.querySelector('#messages').append(li);
-
-                    });                  
+                        // Clear the new message notification 
+                        document.querySelector(`#rooms > #${roomSelected} > a > i`).style.color = "#fff";
+                                                        
+                        document.getElementById("message").setAttribute("room", data.room);  
+                        document.getElementById("messages").innerHTML = "";                     
+                        document.querySelector('#message').setAttribute("placeholder", `You are in the ${data.room} Chatroom`);              
+                        document.querySelector('#message').disabled = false;  
+                                                                    
+                        // Loop throuth the array of dicts 
+                        data.messages.forEach(function(element) {                    
+    
+                            for (var key in element){                        
+                                var user = key;
+                                var message = element[key][0];
+                                var dateTime = element[key][1];
+                            }
+                                                                                    
+                            // Create new message item for list
+                            var li = document.createElement('li');  
+                            li.id = "chatmessage";         
+                                
+                            li.innerHTML = `<h6>${dateTime}</h6><h4> ${user}:</h4>  ${message}`   
+                            
+                            // Add new item to messages list
+                            document.querySelector('#messages').append(li);
+    
+                        });                  
+                        
+                        // emit room change for user announcement
+                        socket.emit('room change', {'room': roomSelected, 'oldRoom': oldRoom})
+                        return false;                                   
+                        
+                    }
                     
-                    // emit room change for user announcement
-                    socket.emit('room change', {'room': roomSelected, 'oldRoom': oldRoom})
-                    return false;                                   
+                    // Add data to send with request 
+                    const data = new FormData();
+                    data.append("room", roomSelected);
+                    data.append("oldRoom", oldRoom);
                     
+                    // Send request 
+                    request.send(data);            
+                    return false;            
                 }
-                
-                // Add data to send with request 
-                const data = new FormData();
-                data.append("room", roomSelected);
-                data.append("oldRoom", oldRoom);
-                
-                // Send request 
-                request.send(data);            
-                return false;            
+                else {
+                    return false
+                }
+
             };
             
         }); 
@@ -247,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // const currentUser = document.querySelector('.welcome').getAttribute("id");
              
         
-        if (currentRoom == room){
+        if (currentRoom == room && currentRoom != oldRoom){
             
             // Create new message item for list
             var li = document.createElement('li');
@@ -260,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }  
         
         // Announce when a user has left the room
-        if (oldRoom == room && oldRoom != ""){
+        if (oldRoom == room && oldRoom != "" && oldRoom != currentRoom){
             
             // Create new message item for list
             var li = document.createElement('li');
