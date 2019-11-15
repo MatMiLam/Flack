@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }  
         
         // Announce when a user has left the room
-        if (oldRoom == room && oldRoom != "" && oldRoom != currentRoom){
+        if (oldRoom == room && oldRoom != "" && oldRoom != currentRoom && oldRoom != "first-time-user"){
             
             // Create new message item for list
             var li = document.createElement('li');
