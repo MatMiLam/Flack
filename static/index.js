@@ -272,9 +272,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const room = document.querySelector('#message').getAttribute("room");
         const currentRoom = data.room;
         const oldRoom = data.oldRoom;
-        // const changingUser = data.currentUser;
-        // const currentUser = document.querySelector('.welcome').getAttribute("id");
-             
         
         if (currentRoom == room && currentRoom != oldRoom){
             
@@ -293,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Create new message item for list
             var li = document.createElement('li');
-            li.id = "leave";          
+            li.id = "exit";          
                 
             li.innerHTML = `<h4>${data.currentUser} has left the ${oldRoom} chat room</h4>`  
                  

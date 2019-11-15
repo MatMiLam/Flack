@@ -3,7 +3,6 @@ import os
 from flask import Flask, session, render_template, request, request, redirect, jsonify
 from flask_socketio import SocketIO, emit
 from flask_session import Session
-# from collections import OrderedDict
 from datetime import datetime
 
 from helpers import login_required
@@ -34,10 +33,12 @@ class ChatRoom(object):
 # Establish default rooms 
 General = ChatRoom("General")
 News = ChatRoom("News")
+Sports = ChatRoom("Sports")
+Technology = ChatRoom("Technology")
 
 
 # Store rooms in a dictionary to allow for easier access to the ChatRoom class 
-chatRooms = {"General":General, "News": News}
+chatRooms = {"General":General, "News": News, "Sports": Sports, "Technology": Technology}
 
 # Store the users last entered room
 lastEntered = {}
@@ -80,14 +81,10 @@ def changeRoom():
     if request.method == "POST":
         
         room = request.form.get("room")  
-        # oldRoom = request.form.get("oldRoom")             
         messages = chatRooms[room].getMessages()        
         currentUser = session["user_id"]
         lastEntered[currentUser] = room
-
-        print(f"***** Changing to {room} *****")
-        
-        # socketio.emit("announce user", {"currentUser": currentUser, "room": room, "oldRoom": oldRoom}, broadcast=True)
+        print(f"***** Changing to {room} *****")        
        
         return jsonify({"messages": messages, "room": room})
 
@@ -106,7 +103,6 @@ def createRoom(data):
     emit("announce room", {"selection": selection, "roomTaken": roomTaken}, broadcast=True)
 
     
-# Attempt to get the user announcement after the room change 
 @socketio.on("room change")
 def roomChange(data):
 
