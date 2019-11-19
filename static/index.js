@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
 
-    //////////////////////// Prepare to re-enter room last visited ////////////////
+    //////////////////////// Prepare to re-enter room last visited or welcome new user ////////////////
 
     socket.on('connect', () => {
 
@@ -22,12 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
             var li = document.createElement('li');
             li.id = "chatmessage";         
                     
-            li.innerHTML = `<h6>Please Select a Chatroom</h6><h4> Please Select a Chatroom:</h4>  Please Select a Chatroom`             
+            li.innerHTML = `<h4> Welcome to Flack Chat. Please Select a Chatroom</h4>`             
             
             // Add new item to messages list
             document.querySelector('#messages').append(li);
         }
-
     });
    
     
