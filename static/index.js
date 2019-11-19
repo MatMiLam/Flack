@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
         
     // Connect to websocket
+
     // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port, {transports: ['websocket']});    
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
@@ -10,13 +11,21 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on('connect', () => {
 
         const room = document.querySelector('#message').getAttribute("room");
-        console.log(`The room is ${room}`)
         if (room != "first-time-user") {
-            console.log(`Not a first time user`)
             document.querySelector('#message').setAttribute("placeholder", `You are in the ${room} Chatroom`);              
             document.querySelector('#message').disabled = false;  
             socket.emit('room change', {'room': room, 'oldRoom': "none"})
             return false
+        }
+        else {
+            // Create new message item for list
+            var li = document.createElement('li');
+            li.id = "chatmessage";         
+                    
+            li.innerHTML = `<h6>Please Select a Chatroom</h6><h4> Please Select a Chatroom:</h4>  Please Select a Chatroom`             
+            
+            // Add new item to messages list
+            document.querySelector('#messages').append(li);
         }
 
     });
